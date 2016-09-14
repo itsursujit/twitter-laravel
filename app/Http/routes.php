@@ -14,6 +14,10 @@
 Route::get('/', 'WelcomeController@home');
 Route::get('/recommended/twitter-users', 'WelcomeController@twitterUsers');
 
+Route::post('/follow/{name}', 'WelcomeController@follow');
+Route::post('/unfollow/{name}', 'WelcomeController@unfollow');
+
+
 
 /*
 Route::get('/upload', 'WelcomeController@upload');

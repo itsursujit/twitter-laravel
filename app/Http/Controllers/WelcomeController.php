@@ -18,22 +18,55 @@ class WelcomeController extends Controller
         //$this->noteApi = new ApiNote();
     }
 
+    public function generateLinks($string){
+        $string = preg_replace(
+            "~[[:alpha:]]+://[^<>[:space:]]+[[:alnum:]/]~",
+            "<a href=\"\\0\">\\0</a>",
+            $string);
+        return $string;
+    }
+
     public function twitterUsers() {
+        $recommendedUsers = [];
         $twitterUsers = $this->twitterApi->getUsersFromDB();
-        return view('twitter.follow-users');
+        foreach($twitterUsers as $users) {
+            if(!$users->follow_him){
+                $twitterUsersLive = $this->twitterApi->getUsersByScreenName($users->screen_name);
+                $twitterUsersLive->status->text = $this->generateLinks($twitterUsersLive->status->text);
+                $recommendedUsers[] = $twitterUsersLive;
+            }
+        }
+        return view('twitter.follow-users', compact('recommendedUsers'));
+    }
+
+    public function follow($screenName) {
+        $rs = $this->twitterApi->followUserByScreenName($screenName);
+        $user = Twitter::where('screen_name', $screenName)->get()->first();
+        $user->follow_him = 1;
+        $user->update();
+        return redirect('/recommended/twitter-users');
+    }
+    public function unfollow($screenName) {
+        $rs = $this->twitterApi->unFollowUserByScreenName($screenName);
+        $user = Twitter::where('screen_name', $screenName)->get()->first();
+        $user->follow_him = 0;
+        $user->update();
+        return redirect('/recommended/twitter-users');
     }
 
 
+
     public function home(Request $request) {
-        //$connection = new TwitterOAuth(Config::get('services.twitter.client_id'), Config::get('services.twitter.client_secret'), Config::get('services.twitter.access_token'), Config::get('services.twitter.access_token_key'));
-        //$content = $connection->get("account/verify_credentials");
-        //dd($content);
-        //$friends = $connection->post('friendships/create', ['screen_name' => 'jack', 'follow' => true]);
-        //$friends = $connection->get('friends/ids', ['screen_name' => 'jack']);
-        //$friends = $connection->get('users/show', ['screen_name'=>'yukihiro_matz']);
-        //$friends = $connection->get("statuses/home_timeline", ["screen_name"=>'yukihiro_matz',"count" => 3, "exclude_replies" => true]);
-        //dd($friends);
-        //return view('templates.home');
+        $recommendedUsers = [];
+        $twitterUsers = $this->twitterApi->getUsersFromDB();
+        foreach($twitterUsers as $users) {
+            if(!$users->follow_him){
+                $twitterUsersLive = $this->twitterApi->getUsersByScreenName($users->screen_name);
+                $twitterUsersLive->status->text = $this->generateLinks($twitterUsersLive->status->text);
+                $recommendedUsers[] = $twitterUsersLive;
+            }
+        }
+        return view('twitter.home', compact('recommendedUsers'));
     }
 
     public function course() {

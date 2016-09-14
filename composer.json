@@ -1,7 +1,7 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "name": "itsursujit/twitter-laravel",
+    "description": "Twitter Feeds with Laravel",
+    "keywords": ["framework", "laravel", "itsursujit", "sujit"],
     "license": "MIT",
     "type": "project",
     "require": {

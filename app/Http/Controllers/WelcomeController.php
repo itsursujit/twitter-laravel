@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Twitter;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class WelcomeController extends Controller
 {
@@ -36,6 +37,7 @@ class WelcomeController extends Controller
                 $recommendedUsers[] = $twitterUsersLive;
             }
         }
+
         return view('twitter.follow-users', compact('recommendedUsers'));
     }
 
@@ -57,16 +59,46 @@ class WelcomeController extends Controller
 
 
     public function home(Request $request) {
+        if(!Auth::user()){
+            return redirect('/login');
+        }
+        $data = $request->all();
         $recommendedUsers = [];
         $twitterUsers = $this->twitterApi->getUsersFromDB();
         foreach($twitterUsers as $users) {
-            if(!$users->follow_him){
+            if($users->follow_him){
                 $twitterUsersLive = $this->twitterApi->getUsersByScreenName($users->screen_name);
                 $twitterUsersLive->status->text = $this->generateLinks($twitterUsersLive->status->text);
                 $recommendedUsers[] = $twitterUsersLive;
             }
         }
         return view('twitter.home', compact('recommendedUsers'));
+
+    }
+
+    public function partial(Request $request) {
+        $data = $request->all();
+        $recommendedUsers = [];
+        $twitterUsers = $this->twitterApi->getUsersFromDB();
+        foreach($twitterUsers as $users) {
+            if($users->follow_him){
+                $twitterUsersLive = $this->twitterApi->getUsersByScreenName($users->screen_name);
+                $twitterUsersLive->status->text = $this->generateLinks($twitterUsersLive->status->text);
+                $recommendedUsers[] = $twitterUsersLive;
+            }
+        }
+        foreach($data as $key => $value){
+            $user_id = str_replace('user_','', $key);
+            foreach($recommendedUsers as $i => $users){
+                if($user_id == $users->id){
+                    if($value == $users->status->id){
+                        unset($recommendedUsers[$i]);
+                    }
+                }
+            }
+        }
+        return view('twitter.partial-feed', compact('recommendedUsers'));
+
     }
 
     public function course() {

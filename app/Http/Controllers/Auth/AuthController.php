@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\Twitter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -90,7 +91,14 @@ class AuthController extends Controller
             $userModel = new User;
             $createdUser = $userModel->addNew($create);
             Auth::loginUsingId($createdUser->id);
-            return redirect('/recommended/twitter-users');
+            $allFriends = Twitter::where('follow_him', 0)->get()->toArray();
+            if(count($allFriends)>0){
+                return redirect('/recommended/twitter-users');
+            }
+            else{
+                return redirect('/');
+            }
+
         } catch (Exception $e) {
             return redirect('auth/twitter');
         }

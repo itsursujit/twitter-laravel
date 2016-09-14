@@ -12,6 +12,7 @@
 */
 
 Route::get('/', 'WelcomeController@home');
+Route::get('/partial', 'WelcomeController@partial');
 Route::get('/recommended/twitter-users', 'WelcomeController@twitterUsers');
 
 Route::post('/follow/{name}', 'WelcomeController@follow');
@@ -26,7 +27,7 @@ Route::get('/edit', 'WelcomeController@edit');
 Route::get('/course', 'WelcomeController@course');
 Route::post('/upload', 'WelcomeController@uploadPost');*/
 
-Route::get('twitter', function () {
+Route::get('login', function () {
     return view('twitterAuth');
 });
 Route::get('auth/twitter', 'Auth\AuthController@redirectToTwitter');

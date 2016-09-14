@@ -13,6 +13,8 @@ CREATE TABLE IF NOT EXISTS `twitter_friends` (
   `user_id` bigint(20) NOT NULL,
   `screen_name` varchar(300) NOT NULL,
   `follow_him` tinyint(1) NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
@@ -36,8 +38,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=8 ;
 
 INSERT INTO `users` (`id`, `name`, `email`, `username`, `password`, `remember_token`, `created_at`, `updated_at`, `twitter_id`) VALUES
-(1, NULL, NULL, 'admin', 'admin', NULL, NULL, NULL, ''),
-(7, 'Sujit Baniya', NULL, '', '', NULL, '2016-09-14 09:14:02', '2016-09-14 09:14:02', '371078881');
+(1, NULL, NULL, 'admin', 'admin', NULL, NULL, NULL, '');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

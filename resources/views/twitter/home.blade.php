@@ -16,6 +16,7 @@
     <div class="container">
         <div class="row">
             <a href="{{ URL::to('/logout') }}">Logout</a>
+            <a href="{{ URL::to('/recommended/twitter-users') }}">Follow Recommended Users</a>
         </div>
         <div class="row">
             <div class="col-sm-4">

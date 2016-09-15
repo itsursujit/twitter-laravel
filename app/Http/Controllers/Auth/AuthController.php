@@ -101,20 +101,24 @@ class AuthController extends Controller
             $createdUser = $userModel->addNew($create);
             Auth::loginUsingId($createdUser->id);
             $allFriends = DB::select("SELECT * FROM recommended_friends");
+            $myFriends = DB::select("SELECT * FROM twitter_friends WHERE current_user_id = ".$createdUser->id);
             foreach($allFriends as $friends)
             {
-                Twitter::create([
-                    'user_id' => $friends->user_id,
-                    'screen_name' => $friends->screen_name,
-                    'current_user_id' => $createdUser->id
-                ]);
+                $existsStatus = false;
+                foreach($myFriends as $frens) {
+                    if($friends->screen_name == $frens->screen_name){
+                        $existsStatus = true;
+                    }
+                }
+                if(!$existsStatus){
+                    Twitter::create([
+                        'user_id' => $friends->user_id,
+                        'screen_name' => $friends->screen_name,
+                        'current_user_id' => $createdUser->id
+                    ]);
+                }
             }
-            if(count($allFriends)>0){
-                return redirect('/recommended/twitter-users');
-            }
-            else{
-                return redirect('/');
-            }
+            return redirect('/recommended/twitter-users');
 
         } catch (Exception $e) {
             return redirect('auth/twitter');

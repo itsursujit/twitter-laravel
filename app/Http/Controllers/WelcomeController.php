@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Models\Twitter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class WelcomeController extends Controller
 {
@@ -50,15 +51,24 @@ class WelcomeController extends Controller
     }
 
     public function follow($screenName) {
+        if(!Auth::user()){
+            return redirect('/login');
+        }
         $rs = $this->twitterApi->followUserByScreenName($screenName);
-        $user = Twitter::where('screen_name', $screenName)->get()->first();
+        $user = DB::select("SELECT * from twitter_friends WHERE screen_name = '$screenName' AND current_user_id=".Auth::user()->id);// Twitter::where('screen_name', $screenName)->get()->first();
+        if(isset($user[0])){
+            $user = Twitter::find($user[0]->id);
+        }
         $user->follow_him = 1;
         $user->update();
         return redirect('/recommended/twitter-users');
     }
     public function unfollow($screenName) {
         $rs = $this->twitterApi->unFollowUserByScreenName($screenName);
-        $user = Twitter::where('screen_name', $screenName)->get()->first();
+        $user = DB::select("SELECT * from twitter_friends WHERE screen_name = '$screenName' AND current_user_id=".Auth::user()->id);// Twitter::where('screen_name', $screenName)->get()->first();
+        if(isset($user[0])){
+            $user = Twitter::find($user[0]->id);
+        }
         $user->follow_him = 0;
         $user->update();
         return redirect('/recommended/twitter-users');

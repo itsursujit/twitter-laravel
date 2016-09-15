@@ -36,16 +36,8 @@ class WelcomeController extends Controller
         foreach($twitterUsers as $users) {
             if(!$users->follow_him){
                 $twitterUsersLive = $this->twitterApi->getUsersByScreenName($users->screen_name);
-                if($twitterUsersLive->following){
-                    $twitter = Twitter::find($users->id);
-                    $twitter->follow_him = $twitterUsersLive->following;
-                    $twitter->update();
-                }
-                else{
-                    $twitterUsersLive->status->text = $this->generateLinks($twitterUsersLive->status->text);
-                    $recommendedUsers[] = $twitterUsersLive;
-                }
-
+                $twitterUsersLive->status->text = $this->generateLinks($twitterUsersLive->status->text);
+                $recommendedUsers[] = $twitterUsersLive;
             }
         }
 
@@ -119,6 +111,8 @@ class WelcomeController extends Controller
     public function course() {
         return view('templates.note_detail');
     }
+
+
 
 
 

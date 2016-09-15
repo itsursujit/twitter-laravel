@@ -6,6 +6,7 @@ use App\Models\Twitter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use App\User;
 use App\Http\Controllers\Controller;
@@ -78,6 +79,13 @@ class AuthController extends Controller
     public function redirectToTwitter()
     {
         return Socialite::driver('twitter')->redirect();
+    }
+
+    public function logout(Request $request){
+        Auth::logout();
+        Session::flush();
+        return redirect('/');
+
     }
 
     public function handleTwitterCallback(Request $request)

@@ -30,5 +30,8 @@ Route::post('/upload', 'WelcomeController@uploadPost');*/
 Route::get('login', function () {
     return view('twitterAuth');
 });
+
+Route::get('logout', 'Auth\AuthController@logout');
+
 Route::get('auth/twitter', 'Auth\AuthController@redirectToTwitter');
 Route::get('twitter-callback', 'Auth\AuthController@handleTwitterCallback');

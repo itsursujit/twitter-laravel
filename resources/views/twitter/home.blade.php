@@ -15,6 +15,9 @@
 <body>
     <div class="container">
         <div class="row">
+            <a href="{{ URL::to('/logout') }}">Logout</a>
+        </div>
+        <div class="row">
             <div class="col-sm-4">
                 <div class="panel panel-default">
                     <div class="panel-heading">

@@ -28,17 +28,10 @@
                         <p>
                             {!! $users->status->text !!}
                         </p>
-                        @if(!$users->following)
-                            <form action="{{ URL::to('/follow/'.$users->screen_name) }}" method="post">
-                                {!! csrf_field() !!}
-                                <button type="submit" target="_blank" class="btn btn-info follow-button">Follow him</button>
-                            </form>
-                        @else
-                            <form action="{{ URL::to('/unfollow/'.$users->screen_name) }}" method="post">
-                                {!! csrf_field() !!}
-                                <button type="submit" class="btn btn-danger">Unfollow him</button>
-                            </form>
-                        @endif
+                        <form action="{{ URL::to('/follow/'.$users->screen_name) }}" method="post">
+                            {!! csrf_field() !!}
+                            <button type="submit" target="_blank" class="btn btn-info follow-button">Follow him</button>
+                        </form>
                     </div>
                 </div>
             </div>

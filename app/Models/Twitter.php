@@ -8,6 +8,7 @@ use Abraham\TwitterOAuth\TwitterOAuth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class Twitter extends Model
 {
@@ -16,7 +17,7 @@ class Twitter extends Model
     protected $fillable = ['user_id', 'screen_name', 'follow_him', 'current_user_id'];
     public function getTwitterConnection()
     {
-        $this->connection = new TwitterOAuth(Config::get('services.twitter.client_id'), Config::get('services.twitter.client_secret'), Config::get('services.twitter.access_token'), Config::get('services.twitter.access_token_key'));
+        $this->connection = new TwitterOAuth(Config::get('services.twitter.client_id'), Config::get('services.twitter.client_secret'));
     }
 
     public function getUsersFromDB($id){
@@ -34,6 +35,12 @@ class Twitter extends Model
         $this->getTwitterConnection();
         $dude = $this->connection->get('users/show', ['user_id'=>$userId]);
         return $dude;
+    }
+
+    public function getAuth(){
+        $this->getTwitterConnection();
+        $access_token = $this->connection->oauth("oauth/request_token", ["oauth_verifier" => Session::get('oauth_verifier')]);
+        return $access_token;
     }
 
     public function getCurrentLoggedInUser() {

@@ -41,10 +41,10 @@ return [
     ],
 
     'twitter' => [
-        'client_id' => 'qXIZxC9eBf2Nc4g2Ng9eV4X3c',
-        'client_secret' => 'r3rkw380xgi7DKGrmVW0XPTZk0DxvnIcGUCvUysGpWt0OsdF56',
-        'access_token' => '371078881-WDYOaGrwHv0V8rXWsp3MXzInRrpi6AsAzqcStgOP',
-        'access_token_key' => 'oYO0OCLWI703B52erHY72AdFdUnvm8jtbhNdSbQOp9Gnm',
+        'client_id' => 'Vvh1ZLcMyJEZgYiCA9ggBr2AU',
+        'client_secret' => 'pROMWkTT7omdJPyLgy7ML05jcyuStjSNKANY7S8IO5afnDj6dm',
+        'access_token' => '371078881-qKXe2b64Mh8NiCSA6fAeLdJO6MTePzbU2S3GYcNH',
+        'access_token_key' => 'smyMEPz7tykI8D3wIi12GaURqYvAdDhQ4HJpiAaGYLOIk',
         'redirect' => 'http://lorelixir.com/twitter-callback',
     ],
 

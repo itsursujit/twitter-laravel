@@ -7,19 +7,21 @@ namespace App\Models;
 use Abraham\TwitterOAuth\TwitterOAuth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\DB;
 
 class Twitter extends Model
 {
     public $connection;
     protected $table = 'twitter_friends';
-    protected $fillable = ['user_id', 'screen_name', 'follow_him'];
+    protected $fillable = ['user_id', 'screen_name', 'follow_him', 'current_user_id'];
     public function getTwitterConnection()
     {
         $this->connection = new TwitterOAuth(Config::get('services.twitter.client_id'), Config::get('services.twitter.client_secret'), Config::get('services.twitter.access_token'), Config::get('services.twitter.access_token_key'));
     }
 
-    public function getUsersFromDB(){
-        return self::all();
+    public function getUsersFromDB($id){
+        $data = DB::select("SELECT * FROM twitter_friends WHERE current_user_id = $id");
+        return $data;
     }
 
     public function getUsersByScreenName($screenName) {

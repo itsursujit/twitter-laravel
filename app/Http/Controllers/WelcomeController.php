@@ -28,17 +28,33 @@ class WelcomeController extends Controller
     }
 
     public function twitterUsers() {
+        if(!Auth::user()){
+            return redirect('/login');
+        }
         $recommendedUsers = [];
-        $twitterUsers = $this->twitterApi->getUsersFromDB();
+        $twitterUsers = $this->twitterApi->getUsersFromDB(Auth::user()->id);
         foreach($twitterUsers as $users) {
             if(!$users->follow_him){
                 $twitterUsersLive = $this->twitterApi->getUsersByScreenName($users->screen_name);
-                $twitterUsersLive->status->text = $this->generateLinks($twitterUsersLive->status->text);
-                $recommendedUsers[] = $twitterUsersLive;
+                if($twitterUsersLive->following){
+                    $twitter = Twitter::find($users->id);
+                    $twitter->follow_him = $twitterUsersLive->following;
+                    $twitter->update();
+                }
+                else{
+                    $twitterUsersLive->status->text = $this->generateLinks($twitterUsersLive->status->text);
+                    $recommendedUsers[] = $twitterUsersLive;
+                }
+
             }
         }
 
-        return view('twitter.follow-users', compact('recommendedUsers'));
+        if(count($recommendedUsers)>0){
+            return view('twitter.follow-users', compact('recommendedUsers'));
+        }
+        else{
+            return redirect('/');
+        }
     }
 
     public function follow($screenName) {
@@ -64,7 +80,7 @@ class WelcomeController extends Controller
         }
         $data = $request->all();
         $recommendedUsers = [];
-        $twitterUsers = $this->twitterApi->getUsersFromDB();
+        $twitterUsers = $this->twitterApi->getUsersFromDB(Auth::user()->id);
         foreach($twitterUsers as $users) {
             if($users->follow_him){
                 $twitterUsersLive = $this->twitterApi->getUsersByScreenName($users->screen_name);
@@ -73,13 +89,12 @@ class WelcomeController extends Controller
             }
         }
         return view('twitter.home', compact('recommendedUsers'));
-
     }
 
     public function partial(Request $request) {
         $data = $request->all();
         $recommendedUsers = [];
-        $twitterUsers = $this->twitterApi->getUsersFromDB();
+        $twitterUsers = $this->twitterApi->getUsersFromDB(Auth::user()->id);
         foreach($twitterUsers as $users) {
             if($users->follow_him){
                 $twitterUsersLive = $this->twitterApi->getUsersByScreenName($users->screen_name);

@@ -15,9 +15,22 @@ class Twitter extends Model
     public $connection;
     protected $table = 'twitter_friends';
     protected $fillable = ['user_id', 'screen_name', 'follow_him', 'current_user_id'];
-    public function getTwitterConnection()
+    public function getAuthConnection()
     {
         $this->connection = new TwitterOAuth(Config::get('services.twitter.client_id'), Config::get('services.twitter.client_secret'));
+    }
+
+    public function getTwitterConnection(){
+        $oauth_token = Session::get('oauth_token');
+        $oauth_token_secret = Session::get('oauth_token_secret');
+        if(!empty($oauth_token) && !empty($oauth_token_secret)) {
+            $this->connection = new TwitterOAuth(Config::get('services.twitter.client_id'), Config::get('services.twitter.client_secret'), $oauth_token, $oauth_token_secret);
+        }
+        //return $this->connection->get("account/verify_credentials");
+    }
+
+    public function sessionDestroy(){
+        Session::flush();
     }
 
     public function getUsersFromDB($id){
@@ -37,13 +50,33 @@ class Twitter extends Model
         return $dude;
     }
 
+    public function getAccessToken($oauth){
+        $this->getTwitterConnection();
+        $access = $this->connection->oauth("oauth/access_token", array("oauth_verifier" => $oauth['oauth_verifier']));
+        Session::put('oauth_token', $access['oauth_token']);
+        Session::put('oauth_token_secret', $access['oauth_token_secret']);
+        return $access;
+    }
+
+    public function getAuthUrl() {
+        $this->getAuthConnection();
+        $token = $this->connection->oauth("oauth/request_token", array("oauth_callback" => Config::get('services.twitter.redirect')));
+        Session::put($token);
+        $url = $this->connection->url("oauth/authorize", ['oauth_token' => $token['oauth_token']]);
+        return $url;
+    }
+
     public function getAuth(){
         $this->getTwitterConnection();
         $access_token = $this->connection->oauth("oauth/request_token", ["oauth_verifier" => Session::get('oauth_verifier')]);
         return $access_token;
     }
 
-    public function getCurrentLoggedInUser() {
+    public function getCurrentLoggedInUser($oauth) {
+        $this->getTwitterConnection();
+        $access = $this->connection->oauth("oauth/access_token", array("oauth_verifier" => $oauth['oauth_verifier']));
+        Session::put('oauth_token', $access['oauth_token']);
+        Session::put('oauth_token_secret', $access['oauth_token_secret']);
         $this->getTwitterConnection();
         return $this->connection->get("account/verify_credentials");
     }
@@ -74,6 +107,12 @@ class Twitter extends Model
         $this->getTwitterConnection();
         $tweets = $this->connection->get("statuses/home_timeline", ["screen_name"=>$screenName,"count" => $count, "exclude_replies" => $excludeReplies]);
         return $tweets;
+    }
+
+    public function getSelfTimeLine(){
+        $this->getTwitterConnection();
+        $statuses = $this->connection->get("statuses/home_timeline", ["count" => 25, "exclude_replies" => true]);
+        return $statuses;
     }
 
     public function getUserTweetsById($userId, $count = 3, $excludeReplies = true) {

@@ -78,7 +78,10 @@ class AuthController extends Controller
 
     public function redirectToTwitter()
     {
-        return Socialite::driver('twitter')->redirect();
+        $t = new Twitter();
+        $t->sessionDestroy();
+        return redirect($t->getAuthUrl());
+        //return Socialite::driver('twitter')->redirect();
     }
 
     public function logout(Request $request){
@@ -91,12 +94,13 @@ class AuthController extends Controller
     public function handleTwitterCallback(Request $request)
     {
         try {
-            $user = Socialite::driver('twitter')->user();
-            $request->session()->put($request->all());
+            $t = new Twitter();
+            $oauth = $request->all();
+            $user = $t->getCurrentLoggedInUser($oauth);
+            $create = [];
             $create['name'] = $user->name;
-            $create['email'] = $user->email;
+            $create['email'] = !empty($user->email)?$user->email:'';
             $create['twitter_id'] = $user->id;
-
             $userModel = new User;
             $createdUser = $userModel->addNew($create);
             Auth::loginUsingId($createdUser->id);

@@ -1,5 +1,5 @@
 <li class="{{ Request::is('home*') ? 'active' : '' }}">
-   <a href="{!! url('/home') !!}">Home</a>
+   <a href="{!! url('/home') !!}">Dashboards</a>
 </li>
 <li class="{{ (Request::is('categories*') || Request::is('category*') ) ? 'active' : '' }}">
    <a href="{!! url('/categories') !!}">Categories</a>

@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use App\Http\Requests\CreatePurchaseTransactionRequest;
 use App\Http\Requests\UpdatePurchaseTransactionRequest;
+use App\Models\PurchaseTransaction;
+use App\Repositories\MaterialTypeRepository;
 use App\Repositories\PurchaseTransactionRepository;
 use App\Http\Controllers\AppBaseController as InfyOmBaseController;
 use Illuminate\Http\Request;
 use Flash;
+use Illuminate\Support\Facades\DB;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 
@@ -17,9 +20,13 @@ class PurchaseTransactionController extends InfyOmBaseController
     /** @var  PurchaseTransactionRepository */
     private $purchaseTransactionRepository;
 
-    public function __construct(PurchaseTransactionRepository $purchaseTransactionRepo)
+    private $materialRepository;
+
+    public function __construct(PurchaseTransactionRepository $purchaseTransactionRepo, MaterialTypeRepository $materialRepository)
     {
         $this->purchaseTransactionRepository = $purchaseTransactionRepo;
+
+        $this->materialRepository = $materialRepository;
     }
 
     /**
@@ -44,7 +51,8 @@ class PurchaseTransactionController extends InfyOmBaseController
      */
     public function create()
     {
-        return view('purchaseTransactions.create');
+        $materials = $this->materialRepository->lists('title','id');
+        return view('purchaseTransactions.create')->with('materials', $materials);
     }
 
     /**

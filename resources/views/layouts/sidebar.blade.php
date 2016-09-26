@@ -1,8 +1,8 @@
-<div id="sidebar-wrapper" class="col-md-3">
+<div id="sidebar-wrapper">
     <ul class="sidebar-nav">
         <li class="sidebar-brand">
             <a href="#">
-                Infyom Generator
+                United Gold Mart
             </a>
         </li>
        @include('layouts.menu')

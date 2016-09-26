@@ -1,8 +1,3 @@
-<!-- Material Id Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('material_id', 'Material Id:') !!}
-    {!! Form::text('material_id', null, ['class' => 'form-control']) !!}
-</div>
 
 <!-- Purchased Date Field -->
 <div class="form-group col-sm-6">
@@ -16,9 +11,16 @@
     {!! Form::text('purchased_from', null, ['class' => 'form-control']) !!}
 </div>
 
+
+<!-- Material Id Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('material_id', 'Material Type:') !!}
+    {!! Form::select('material_id', $materials, null, ['class' => 'form-control']) !!}
+</div>
+
 <!-- Quantity Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('quantity', 'Quantity:') !!}
+    {!! Form::label('quantity', 'Quantity (in Grams):') !!}
     {!! Form::text('quantity', null, ['class' => 'form-control']) !!}
 </div>
 

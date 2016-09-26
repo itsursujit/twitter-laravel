@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use App\Http\Requests\CreateCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
+use App\Models\Category;
 use App\Repositories\CategoryRepository;
 use App\Http\Controllers\AppBaseController as InfyOmBaseController;
 use Illuminate\Http\Request;
@@ -31,7 +32,7 @@ class CategoryController extends InfyOmBaseController
     public function index(Request $request)
     {
         $this->categoryRepository->pushCriteria(new RequestCriteria($request));
-        $categories = $this->categoryRepository->all();
+        $categories = $this->categoryRepository->with('parentCategory')->all();
 
         return view('categories.index')
             ->with('categories', $categories);
@@ -42,9 +43,12 @@ class CategoryController extends InfyOmBaseController
      *
      * @return Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('categories.create');
+        $this->categoryRepository->pushCriteria(new RequestCriteria($request));
+        $categories = $this->categoryRepository->lists('title', 'id')->where('deleted_at', null);
+        return view('categories.create')
+            ->with('categories', $categories);
     }
 
     /**
@@ -75,6 +79,7 @@ class CategoryController extends InfyOmBaseController
     public function show($id)
     {
         $category = $this->categoryRepository->findWithoutFail($id);
+        $categories = $this->categoryRepository->with('parentCategory')->all();
 
         if (empty($category)) {
             Flash::error('Category not found');
@@ -82,7 +87,9 @@ class CategoryController extends InfyOmBaseController
             return redirect(route('categories.index'));
         }
 
-        return view('categories.show')->with('category', $category);
+        return view('categories.show')
+            ->with('category', $category)
+            ->with('categories', $categories);
     }
 
     /**
@@ -96,13 +103,17 @@ class CategoryController extends InfyOmBaseController
     {
         $category = $this->categoryRepository->findWithoutFail($id);
 
+        $categories = $this->categoryRepository->lists('title', 'id')->where('deleted_at', null);
+
         if (empty($category)) {
             Flash::error('Category not found');
 
             return redirect(route('categories.index'));
         }
 
-        return view('categories.edit')->with('category', $category);
+        return view('categories.edit')
+            ->with('category', $category)
+            ->with('categories', $categories);
     }
 
     /**

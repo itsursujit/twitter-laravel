@@ -2,15 +2,16 @@
     <thead>
         <th>Id</th>
         <th>Title</th>
-        <th>Parent Id</th>
+        <th>Parent Category</th>
         <th colspan="3">Action</th>
     </thead>
     <tbody>
     @foreach($categories as $category)
+        @if($category->id)
         <tr>
             <td>{!! $category->id !!}</td>
             <td>{!! $category->title !!}</td>
-            <td>{!! $category->parent_id !!}</td>
+            <td>{!! $category->parentCategory->title !!}</td>
             <td>
                 {!! Form::open(['route' => ['categories.destroy', $category->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>
@@ -21,6 +22,7 @@
                 {!! Form::close() !!}
             </td>
         </tr>
+        @endif
     @endforeach
     </tbody>
 </table>

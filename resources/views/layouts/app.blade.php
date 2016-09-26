@@ -58,7 +58,7 @@
 
                 <!-- Branding Image -->
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    InfyOm Generator
+                    United Gold Mart
                 </a>
             </div>
 
@@ -86,7 +86,7 @@
         <!-- /#sidebar-wrapper -->
         <header class="header">
             <a href="#menu-toggle"
-               style="margin-top: 8px;margin-left: 25px;background-color: #E7E7E7;border-color: #E7E7E7"
+               style="margin-top: 8px;margin-left: 5px;background-color: #E7E7E7;border-color: #E7E7E7"
                class="btn btn-default" id="menu-toggle"><i class="fa fa-bars" aria-hidden="true"></i></a>
 
             @if (!Auth::guest())

@@ -1,13 +1,17 @@
-<!-- Title Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('title', 'Title:') !!}
-    {!! Form::text('title', null, ['class' => 'form-control']) !!}
+<div class="row">
+    <!-- Title Field -->
+    <div class="form-group col-sm-6">
+        {!! Form::label('title', 'Title:') !!}
+        {!! Form::text('title', null, ['class' => 'form-control']) !!}
+    </div>
 </div>
+<div class="row">
+    <!-- Parent Id Field -->
+    <div class="form-group col-sm-6">
+        {!! Form::label('parent_id', 'Parent Category:') !!}
+        {!! Form::select('parent_id', $categories ,  $category->parent_id?$category->parent_id:0, ['class' => 'form-control']) !!}
+    </div>
 
-<!-- Parent Id Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('parent_id', 'Parent Id:') !!}
-    {!! Form::text('parent_id', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Submit Field -->

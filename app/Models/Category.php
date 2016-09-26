@@ -66,4 +66,8 @@ class Category extends Model
     public static $rules = [
         
     ];
+
+    public function parentCategory(){
+        return $this->hasOne('App\Models\Category', 'id', 'parent_id');
+    }
 }

@@ -44,8 +44,8 @@ class PurchaseTransaction extends Model
 {
     use SoftDeletes;
 
-    public $table = 'purchase_transactions';
-    
+    protected $table = 'purchase_transactions';
+
 
     protected $dates = ['deleted_at'];
 
@@ -73,6 +73,6 @@ class PurchaseTransaction extends Model
      * @var array
      */
     public static $rules = [
-        
+
     ];
 }

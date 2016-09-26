@@ -3,7 +3,7 @@
         <th>Material Id</th>
         <th>Purchased Date</th>
         <th>Purchased From</th>
-        <th>Quantity</th>
+        <th>Quantity (In Grams)</th>
         <th colspan="3">Action</th>
     </thead>
     <tbody>

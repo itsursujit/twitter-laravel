@@ -11,27 +11,43 @@
 |
 */
 
-Route::get('/', 'WelcomeController@home');
-Route::get('/partial', 'WelcomeController@partial');
-Route::get('/recommended/twitter-users', 'WelcomeController@twitterUsers');
+Route::get('generator_builder', '\InfyOm\GeneratorBuilder\Controllers\GeneratorBuilderController@builder');
 
-Route::post('/follow/{name}', 'WelcomeController@follow');
-Route::post('/unfollow/{name}', 'WelcomeController@unfollow');
+Route::get('field_template', '\InfyOm\GeneratorBuilder\Controllers\GeneratorBuilderController@fieldTemplate');
 
+Route::post('generator_builder/generate', '\InfyOm\GeneratorBuilder\Controllers\GeneratorBuilderController@generate');
 
+Route::resource('categories', 'CategoryController');
 
-/*
-Route::get('/upload', 'WelcomeController@upload');
-Route::get('/home', 'WelcomeController@home');
-Route::get('/edit', 'WelcomeController@edit');
-Route::get('/course', 'WelcomeController@course');
-Route::post('/upload', 'WelcomeController@uploadPost');*/
+Route::resource('kaligards', 'KaligardController');
 
-Route::get('login', function () {
-    return view('twitterAuth');
-});
+Route::resource('inventories', 'InventoryController');
 
+Route::resource('materialTypes', 'MaterialTypeController');
+
+Route::resource('measurements', 'MeasurementController');
+
+Route::resource('products', 'ProductController');
+
+Route::resource('purchaseTransactions', 'PurchaseTransactionController');
+
+Route::resource('workAssignments', 'WorkAssignmentController');
+
+Route::resource('workAssignmentDetails', 'WorkAssignmentDetailController');
+
+Route::get('login', 'Auth\AuthController@getLogin');
+Route::post('login', 'Auth\AuthController@postLogin');
 Route::get('logout', 'Auth\AuthController@logout');
 
-Route::get('auth/twitter', 'Auth\AuthController@redirectToTwitter');
-Route::get('twitter-callback', 'Auth\AuthController@handleTwitterCallback');
+// Registration Routes...
+Route::get('register', 'Auth\AuthController@getRegister');
+Route::post('register', 'Auth\AuthController@postRegister');
+
+// Password Reset Routes...
+Route::get('password/reset', 'Auth\PasswordController@getEmail');
+Route::post('password/email', 'Auth\PasswordController@postEmail');
+Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
+Route::post('password/reset', 'Auth\PasswordController@postReset');
+
+Route::get('/home', 'HomeController@index');
+Route::get('/', 'HomeController@index');

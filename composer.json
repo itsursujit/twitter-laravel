@@ -9,13 +9,14 @@
         "laravel/framework": "5.2.*",
         "infyomlabs/laravel-generator": "dev-master",
         "laravelcollective/html": "5.2.*",
-        "infyomlabs/core-templates": "dev-master",
+        "infyomlabs/adminlte-templates": "5.2.x-dev",
         "infyomlabs/swagger-generator": "dev-master",
         "jlapp/swaggervel": "dev-master",
         "infyomlabs/generator-builder": "dev-master",
         "guzzlehttp/guzzle": "^6.2",
         "abraham/twitteroauth": "^0.6.4",
-        "laravel/socialite": "^2.0"
+        "laravel/socialite": "^2.0",
+        "doctrine/dbal": "~2.3"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

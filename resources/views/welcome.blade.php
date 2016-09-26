@@ -1,14 +1,17 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Document</title>
-</head>
-<body>
-<form action="/upload" method="post" enctype="multipart/form-data">
-    {!! csrf_field() !!}
-    <input type="file" name="image" id="image">
-    <input type="submit" value="Submit">
-</form>
-</body>
-</html>
+@extends('layouts.app')
+
+@section('content')
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="panel panel-default">
+                <div class="panel-heading">Welcome</div>
+
+                <div class="panel-body">
+                    Your Application's Landing Page.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection

@@ -10,7 +10,7 @@
         @include('adminlte-templates::common.errors')
 
         <div class="row">
-            {!! Form::model($category, ['route' => ['categories.update', $category->id], 'method' => 'patch']) !!}
+            {!! Form::model($category, ['route' => ['categories.update', $category->id], 'method' => 'patch', 'files' => true]) !!}
 
             @include('categories.fields')
 

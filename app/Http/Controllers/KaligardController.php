@@ -60,6 +60,19 @@ class KaligardController extends InfyOmBaseController
 
         $kaligard = $this->kaligardRepository->create($input);
 
+        if(!empty($input['image']) ){
+            $image = $request->file('image');
+            if($image->isValid()) {
+                $destinationPath = public_path().'/images/kaligards/';
+                $fileName = $kaligard->id . '.'.$image->getClientOriginalExtension();
+                $filePath = '/images/kaligards/' . $fileName;
+                $this->upload($image, $destinationPath, $fileName);
+
+                $kaligard->image = $filePath;
+                $kaligard->update();
+            }
+        }
+
         Flash::success('Kaligard saved successfully.');
 
         return redirect(route('kaligards.index'));

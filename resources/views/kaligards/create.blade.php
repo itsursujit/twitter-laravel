@@ -10,7 +10,7 @@
     @include('adminlte-templates::common.errors')
 
     <div class="row">
-        {!! Form::open(['route' => 'kaligards.store']) !!}
+        {!! Form::open(['route' => 'kaligards.store', 'files' => true]) !!}
 
             @include('kaligards.fields')
 

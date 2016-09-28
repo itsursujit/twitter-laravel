@@ -10,7 +10,7 @@
         @include('adminlte-templates::common.errors')
 
         <div class="row">
-            {!! Form::model($kaligard, ['route' => ['kaligards.update', $kaligard->id], 'method' => 'patch']) !!}
+            {!! Form::model($kaligard, ['route' => ['kaligards.update', $kaligard->id], 'files' => true, 'method' => 'patch']) !!}
 
             @include('kaligards.fields')
 

@@ -46,7 +46,8 @@ class Category extends Model
 
     public $fillable = [
         'title',
-        'parent_id'
+        'parent_id',
+        'image'
     ];
 
     /**

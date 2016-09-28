@@ -13,6 +13,7 @@ class KaligardRepository extends BaseRepository
     protected $fieldSearchable = [
         'first_name',
         'middle_name',
+        'last_name',
         'gender',
         'nationality',
         'image',

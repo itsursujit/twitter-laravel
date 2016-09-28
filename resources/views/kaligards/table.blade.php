@@ -1,31 +1,29 @@
 <table class="table table-responsive" id="kaligards-table">
     <thead>
-        <th>Id</th>
-        <th>First Name</th>
-        <th>Middle Name</th>
-        <th>Gender</th>
-        <th>Nationality</th>
-        <th>Image</th>
-        <th>Code</th>
-        <th>Address</th>
-        <th>Id Card Type</th>
-        <th>Id Card Image</th>
-        <th>Notes</th>
-        <th colspan="3">Action</th>
+        <tr>
+            <th>Image</th>
+            <th>Code</th>
+            <th>Name</th>
+            <th>Nationality</th>
+            <th>Address</th>
+            <th>Id Card Type</th>
+            <th>Notes</th>
+            <th colspan="3">Action</th>
+        </tr>
     </thead>
     <tbody>
     @foreach($kaligards as $kaligard)
         <tr>
-            <td>{!! $kaligard->id !!}</td>
-            <td>{!! $kaligard->first_name !!}</td>
-            <td>{!! $kaligard->middle_name !!}</td>
-            <td>{!! $kaligard->gender !!}</td>
-            <td>{!! $kaligard->nationality !!}</td>
-            <td>{!! $kaligard->image !!}</td>
+            <td>
+                @if(!empty($kaligard->image))
+                    <img src="{{ $kaligard->image }}" style="width:120px;" class="img img-responsive" alt="{!! $kaligard->first_name !!}">
+                @endif
+            </td>
             <td>{!! $kaligard->code !!}</td>
+            <td>{!! $kaligard->first_name . ' ' . $kaligard->middle_name . ' ' . $kaligard->last_name !!}</td>
+            <td>{!! $kaligard->nationality !!}</td>
             <td>{!! $kaligard->address !!}</td>
             <td>{!! $kaligard->id_card_type !!}</td>
-            <td>{!! $kaligard->id_card_image !!}</td>
             <td>{!! $kaligard->notes !!}</td>
             <td>
                 {!! Form::open(['route' => ['kaligards.destroy', $kaligard->id], 'method' => 'delete']) !!}

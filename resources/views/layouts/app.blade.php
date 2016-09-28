@@ -22,7 +22,7 @@
     <link href="http://blackrockdigital.github.io/startbootstrap-simple-sidebar/css/bootstrap.min.css" rel="stylesheet">
     <link href="http://blackrockdigital.github.io/startbootstrap-simple-sidebar/css/simple-sidebar.css"
           rel="stylesheet">
-
+    @yield('styles')
     <style type="text/css">
         .sidebar-nav li.active > a,
         .sidebar-nav li > a:focus {
@@ -134,7 +134,17 @@
             e.preventDefault();
             $("#wrapper").toggleClass("toggled");
         });
+        function readURL(input, target) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
 
+                reader.onload = function (e) {
+                    $(target).attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
     </script>
 
     @yield('scripts')

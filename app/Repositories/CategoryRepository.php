@@ -12,7 +12,8 @@ class CategoryRepository extends BaseRepository
      */
     protected $fieldSearchable = [
         'title',
-        'parent_id'
+        'parent_id',
+        'image'
     ];
 
     /**

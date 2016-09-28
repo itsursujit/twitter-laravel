@@ -103,6 +103,7 @@ class Kaligard extends Model
     public $fillable = [
         'first_name',
         'middle_name',
+        'last_name',
         'gender',
         'nationality',
         'image',

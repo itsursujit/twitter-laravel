@@ -16,3 +16,6 @@
 <li class="{{ Request::is('purchaseTransaction*') ? 'active' : '' }}">
    <a href="{!! url('/purchaseTransactions') !!}">Purchase</a>
 </li>
+<li class="{{ Request::is('materialType*') ? 'active' : '' }}">
+   <a href="{!! url('/materialTypes') !!}">Materials</a>
+</li>

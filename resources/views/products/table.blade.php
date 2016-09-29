@@ -1,37 +1,38 @@
 <table class="table table-responsive" id="products-table">
     <thead>
-        <th>Id</th>
+        <th>Image</th>
         <th>Code</th>
         <th>Title</th>
-        <th>Category</th>
-        <th>Sub Category</th>
         <th>Weight</th>
-        <th>Additional Jarti</th>
+        <th>Jarti</th>
         <th>Wages</th>
-        <th>Image</th>
-        <th>Status</th>
-        <th>Is Ready</th>
         <th>Amount</th>
-        <th>Notes</th>
-        <th>Material Description</th>
+        <th>Status</th>
         <th colspan="3">Action</th>
     </thead>
     <tbody>
     @foreach($products as $product)
         <tr>
-            <td>{!! $product->id !!}</td>
+            <td>
+                @if(!empty($product->image))
+                    <img src="{{ $product->image }}" style="width:120px;" class="img img-responsive" alt="{!! $kaligard->title !!}">
+                @endif
+            </td>
             <td>{!! $product->code !!}</td>
             <td>{!! $product->title !!}</td>
-            <td>{!! $product->category !!}</td>
-            <td>{!! $product->sub_category !!}</td>
             <td>{!! $product->weight !!}</td>
             <td>{!! $product->additional_jarti !!}</td>
             <td>{!! $product->wages !!}</td>
-            <td>{!! $product->image !!}</td>
-            <td>{!! $product->status !!}</td>
-            <td>{!! $product->is_ready !!}</td>
             <td>{!! $product->amount !!}</td>
-            <td>{!! $product->notes !!}</td>
+            <td>
+                @if($product->status == 'Not Started')
+                    <label for="" class="label label-danger">{!! $product->status !!}</label>
+                @elseif($product->status == 'In Progress')
+                    <label for="" class="label label-warning">{!! $product->status !!}</label>
+                @elseif($product->status == 'Complete')
+                    <label for="" class="label label-success">{!! $product->status !!}</label>
+                @endif
+            </td>
             <td>{!! $product->material_description !!}</td>
             <td>
                 {!! Form::open(['route' => ['products.destroy', $product->id], 'method' => 'delete']) !!}

@@ -1,15 +1,19 @@
 <table class="table table-responsive" id="materialTypes-table">
     <thead>
-        <th>Id</th>
-        <th>Title</th>
-        <th>Description</th>
-        <th colspan="3">Action</th>
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Quantity (in GRAMS)</th>
+            <th>Description</th>
+            <th colspan="3">Action</th>
+        </tr>
     </thead>
     <tbody>
     @foreach($materialTypes as $materialType)
         <tr>
             <td>{!! $materialType->id !!}</td>
             <td>{!! $materialType->title !!}</td>
+            <td>{!! $materialType->quantity !!}</td>
             <td>{!! $materialType->description !!}</td>
             <td>
                 {!! Form::open(['route' => ['materialTypes.destroy', $materialType->id], 'method' => 'delete']) !!}

@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use App\Http\Requests\CreateMaterialTypeRequest;
 use App\Http\Requests\UpdateMaterialTypeRequest;
+use App\Models\Inventory;
 use App\Repositories\MaterialTypeRepository;
 use App\Http\Controllers\AppBaseController as InfyOmBaseController;
 use Illuminate\Http\Request;
 use Flash;
+use Illuminate\Support\Facades\DB;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 
@@ -32,6 +34,10 @@ class MaterialTypeController extends InfyOmBaseController
     {
         $this->materialTypeRepository->pushCriteria(new RequestCriteria($request));
         $materialTypes = $this->materialTypeRepository->all();
+
+        $materialTypes = DB::select("SELECT material_types.*, inventories.* FROM material_types INNER JOIN inventories ON material_types.id = inventories.material_id");
+        //$materialTypes = json_decode(json_encode($materialTypes));
+        //dd($materialTypes);
 
         return view('materialTypes.index')
             ->with('materialTypes', $materialTypes);
@@ -59,6 +65,11 @@ class MaterialTypeController extends InfyOmBaseController
         $input = $request->all();
 
         $materialType = $this->materialTypeRepository->create($input);
+
+        $inventory = Inventory::create([
+            'material_id' => $materialType->id,
+            'quantity' => 0
+        ]);
 
         Flash::success('MaterialType saved successfully.');
 

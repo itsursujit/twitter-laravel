@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use App\Http\Requests\CreatePurchaseTransactionRequest;
 use App\Http\Requests\UpdatePurchaseTransactionRequest;
+use App\Models\Inventory;
 use App\Models\PurchaseTransaction;
 use App\Repositories\MaterialTypeRepository;
 use App\Repositories\PurchaseTransactionRepository;
@@ -67,6 +68,9 @@ class PurchaseTransactionController extends InfyOmBaseController
         $input = $request->all();
 
         $purchaseTransaction = $this->purchaseTransactionRepository->create($input);
+        $inventory = Inventory::where('material_id', $purchaseTransaction->material_id)->first();
+        $inventory->quantity = $inventory->quantity + $purchaseTransaction->quantity;
+        $inventory->update();
 
         Flash::success('PurchaseTransaction saved successfully.');
 

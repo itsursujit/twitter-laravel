@@ -213,15 +213,13 @@ class ProductController extends InfyOmBaseController
 
         if(!empty($input['image']) ){
             $image = $request->file('image');
-            if($image->isValid()) {
-                $destinationPath = public_path().'/images/products/';
-                $fileName = $product->id . '.'.$image->getClientOriginalExtension();
-                $filePath = '/images/products/' . $fileName;
-                $this->upload($image, $destinationPath, $fileName);
+            $destinationPath = public_path().'/images/products/';
+            $fileName = $product->id . '.'.$image->getClientOriginalExtension();
+            $filePath = '/images/products/' . $fileName;
+            $this->upload($image, $destinationPath, $fileName);
 
-                $product->image = $filePath;
-                $product->update();
-            }
+            $product->image = $filePath;
+            $product->update();
         }
 
 

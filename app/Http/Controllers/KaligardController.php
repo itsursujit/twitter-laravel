@@ -57,7 +57,6 @@ class KaligardController extends InfyOmBaseController
     public function store(CreateKaligardRequest $request)
     {
         $input = $request->all();
-
         $kaligard = $this->kaligardRepository->create($input);
 
         if(!empty($input['image']) ){
@@ -66,6 +65,8 @@ class KaligardController extends InfyOmBaseController
                 $destinationPath = public_path().'/images/kaligards/';
                 $fileName = $kaligard->id . '.'.$image->getClientOriginalExtension();
                 $filePath = '/images/kaligards/' . $fileName;
+                var_dump($image);
+                echo $destinationPath.";".$fileName.";".$filePath;
                 $this->upload($image, $destinationPath, $fileName);
 
                 $kaligard->image = $filePath;
@@ -129,6 +130,7 @@ class KaligardController extends InfyOmBaseController
     public function update($id, UpdateKaligardRequest $request)
     {
         $kaligard = $this->kaligardRepository->findWithoutFail($id);
+        $input = $request->all();
 
         if (empty($kaligard)) {
             Flash::error('Kaligard not found');
@@ -137,6 +139,19 @@ class KaligardController extends InfyOmBaseController
         }
 
         $kaligard = $this->kaligardRepository->update($request->all(), $id);
+
+        if(!empty($input['image']) ){
+            $image = $request->file('image');
+            if($image->isValid()) {
+                $destinationPath = public_path().'/images/kaligards/';
+                $fileName = $kaligard->id . '.'.$image->getClientOriginalExtension();
+                $filePath = '/images/kaligards/' . $fileName;
+                $this->upload($image, $destinationPath, $fileName);
+
+                $kaligard->image = $filePath;
+                $kaligard->update();
+            }
+        }
 
         Flash::success('Kaligard updated successfully.');
 

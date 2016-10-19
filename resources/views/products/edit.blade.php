@@ -10,7 +10,7 @@
         @include('adminlte-templates::common.errors')
 
         <div class="row">
-            {!! Form::model($product, ['route' => ['products.update', $product->id], 'method' => 'patch']) !!}
+            {!! Form::model($product, ['route' => ['products.update', $product->id], 'files' => true, 'method' => 'patch']) !!}
 
             @include('products.fields')
 

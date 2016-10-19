@@ -4,7 +4,7 @@
             min-width: 200px;
             min-height: 180px;
         }
-        #image{display: none;}
+        /*#image{display: none;}*/
     </style>
 @stop
 <div class="row">
@@ -15,7 +15,7 @@
         <div class="form-group">
             {!! Form::label('image', ' ') !!}
             {!! Form::file('image', null, ['class' => 'form-control']) !!}
-            <input type="button" value="Upload Product Image" class="btn btn-danger" onclick="document.getElementById('image').click();" />
+            {{--<input type="button" value="Upload Product Image" class="btn btn-danger" onclick="document.getElementById('image').click();" />--}}
         </div>
     </div>
     <div class="col-sm-9"><!-- Code Field -->

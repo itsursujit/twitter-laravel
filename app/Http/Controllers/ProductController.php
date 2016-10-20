@@ -98,7 +98,8 @@ class ProductController extends InfyOmBaseController
         $workAssignment = [
             'product_id' => $product->id,
             'kaligard_id' => $input['kaligards'],
-            'notes' => $input['kaligard_note']
+            'notes' => $input['kaligard_note'],
+            'deadline' => $input['deadline']
         ];
         $assignment = WorkAssignment::create($workAssignment);
 

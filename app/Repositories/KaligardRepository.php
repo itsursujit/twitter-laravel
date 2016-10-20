@@ -21,7 +21,11 @@ class KaligardRepository extends BaseRepository
         'address',
         'id_card_type',
         'id_card_image',
-        'notes'
+        'notes',
+        'father_name',
+        'phone_1',
+        'phone_2',
+        'id_number'
     ];
 
     /**

@@ -23,7 +23,9 @@ class ProductRepository extends BaseRepository
         'is_ready',
         'amount',
         'notes',
-        'material_description'
+        'material_description',
+        'length',
+        'size'
     ];
 
     /**

@@ -13,7 +13,8 @@ class WorkAssignmentRepository extends BaseRepository
     protected $fieldSearchable = [
         'kaligard_id',
         'product_id',
-        'notes'
+        'notes',
+        'deadline'
     ];
 
     /**

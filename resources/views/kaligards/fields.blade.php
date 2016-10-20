@@ -44,6 +44,32 @@
             </div>
         </div>
         <div class="row">
+            <div class="col-sm-4">
+                <!-- First Name Field -->
+                <div class="form-group">
+                    {!! Form::label('father_name', 'Father Name:') !!}
+                    {!! Form::text('father_name', null, ['class' => 'form-control']) !!}
+                </div>
+
+            </div>
+            <div class="col-sm-4">
+
+                <!-- Middle Name Field -->
+                <div class="form-group">
+                    {!! Form::label('phone_1', 'Phone No #1:') !!}
+                    {!! Form::text('phone_1', null, ['class' => 'form-control']) !!}
+                </div>
+            </div>
+            <div class="col-sm-4">
+
+                <!-- Middle Name Field -->
+                <div class="form-group">
+                    {!! Form::label('phone_2', 'Phone No #2:') !!}
+                    {!! Form::text('phone_2', null, ['class' => 'form-control']) !!}
+                </div>
+            </div>
+        </div>
+        <div class="row">
             <!-- Gender Field -->
             <div class="form-group col-sm-6">
                 {!! Form::label('gender', 'Gender:') !!}
@@ -58,11 +84,13 @@
         </div>
         <div class="row">
             <!-- Address Field -->
-            <div class="form-group col-sm-4">
+            <div class="form-group col-sm-6">
                 {!! Form::label('address', 'Address:') !!}
                 {!! Form::text('address', null, ['class' => 'form-control']) !!}
             </div>
+        </div>
 
+        <div class="row">
             <!-- Nationality Field -->
             <div class="form-group col-sm-4">
                 {!! Form::label('nationality', 'Nationality:') !!}
@@ -75,6 +103,11 @@
                 {!! Form::select('id_card_type', ['Passport' =>'Passport', 'Citizenship' => 'Citizenship', 'Driving License' =>'Driving License'], null, ['class' => 'form-control']) !!}
             </div>
 
+            <!-- Id Card Type Field -->
+            <div class="form-group col-sm-4">
+                {!! Form::label('id_number', 'Id Number:') !!}
+                {!! Form::text('id_number', null, ['class' => 'form-control']) !!}
+            </div>
         </div>
     </div>
 </div>

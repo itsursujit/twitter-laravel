@@ -47,7 +47,8 @@ class WorkAssignment extends Model
     public $fillable = [
         'kaligard_id',
         'product_id',
-        'notes'
+        'notes',
+        'deadline'
     ];
 
     /**

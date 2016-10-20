@@ -1,7 +1,6 @@
 <table class="table table-responsive" id="categories-table">
     <thead>
         <tr>
-            <th>Image</th>
             <th>Id</th>
             <th>Title</th>
             <th>Parent Category</th>
@@ -12,11 +11,6 @@
     @foreach($categories as $category)
         @if($category->id)
         <tr>
-            <td>
-                @if(!empty($category->image))
-                    <img src="{{ $category->image }}" style="width: 120px;" class="img img-responsive" alt="{!! $category->title !!}">
-                @endif
-            </td>
             <td>{!! $category->id !!}</td>
             <td>{!! $category->title !!}</td>
 

@@ -17,10 +17,17 @@
 @stop
 <div class="row">
     <div class="col-sm-6">
-        <div class="row">
+        {{--<div class="row">
             <div class="form-group">
                 {!! Form::label('image', 'Image:') !!}
                 {!! Form::file('image', null, ['class' => 'form-control']) !!}
+            </div>
+        </div>--}}
+        <div class="row">
+            <!-- Title Field -->
+            <div class="form-group">
+                {!! Form::label('code', 'Code:') !!}
+                {!! Form::text('code', null, ['class' => 'form-control']) !!}
             </div>
         </div>
         <div class="row">
@@ -48,7 +55,7 @@
     </div>
     <!-- Title Field -->
 
-    <div class="form-group col-sm-6">
+    {{--<div class="form-group col-sm-6">
         <div class="image-holder-new img-thumbnail">
             <img src=""  class="img img-responsive">
             <p><strong>New Image</strong></p>
@@ -60,7 +67,7 @@
             @endif
             <p><strong>Current Image</strong></p>
         </div>
-    </div>
+    </div>--}}
 </div>
 @section('scripts')
     <script>

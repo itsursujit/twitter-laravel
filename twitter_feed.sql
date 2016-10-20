@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 26, 2016 at 05:24 PM
+-- Generation Time: Oct 20, 2016 at 03:33 PM
 -- Server version: 5.6.31-0ubuntu0.14.04.2
 -- PHP Version: 5.5.9-1ubuntu4.19
 
@@ -34,20 +34,21 @@ CREATE TABLE IF NOT EXISTS `categories` (
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
   `is_deleted` tinyint(1) NOT NULL DEFAULT '0',
   `deleted_at` timestamp NULL DEFAULT NULL,
+  `image` varchar(255) NOT NULL,
+  `code` varchar(10) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `parent_id` (`parent_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
 --
 -- Dumping data for table `categories`
 --
 
-INSERT INTO `categories` (`id`, `title`, `parent_id`, `created_at`, `updated_at`, `is_deleted`, `deleted_at`) VALUES
-(0, 'Main Category', 0, '2016-09-26 09:31:09', '2016-09-26 09:31:09', 0, NULL),
-(1, 'Necklace', 0, '2016-09-26 09:31:14', '2016-09-26 09:31:14', 0, NULL),
-(2, 'Ring', 0, '2016-09-26 09:31:27', '2016-09-26 09:31:27', 0, NULL),
-(5, 'Pauju', 0, '2016-09-26 03:42:16', '2016-09-26 03:42:16', 0, NULL),
-(6, 'Gold Ring', 2, '2016-09-26 09:49:21', '2016-09-26 04:04:21', 0, NULL);
+INSERT INTO `categories` (`id`, `title`, `parent_id`, `created_at`, `updated_at`, `is_deleted`, `deleted_at`, `image`, `code`) VALUES
+(0, 'Main Category', 0, '2016-09-26 09:31:09', '2016-09-26 09:31:09', 0, NULL, '', ''),
+(1, 'Necklace', 0, '2016-10-20 09:08:10', '2016-10-20 09:08:10', 0, NULL, '/images/categories/12.jpg', 'N'),
+(2, 'Ring', 0, '2016-10-20 09:08:01', '2016-10-20 09:08:01', 0, NULL, '/images/categories/12.jpg', 'R'),
+(13, 'Gold Ring', 2, '2016-10-20 09:08:04', '2016-10-20 09:08:04', 0, NULL, '/images/categories/13.jpg', 'RS');
 
 -- --------------------------------------------------------
 
@@ -64,7 +65,16 @@ CREATE TABLE IF NOT EXISTS `inventories` (
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `material_id` (`material_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `inventories`
+--
+
+INSERT INTO `inventories` (`id`, `material_id`, `quantity`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 4, 2988.87220, '2016-09-29 03:54:30', '2016-09-29 04:28:28', NULL),
+(2, 5, 5000.88880, '2016-09-29 03:54:39', '2016-09-29 03:57:07', NULL),
+(3, 6, 0.00000, '2016-09-29 03:54:49', '2016-09-29 03:54:49', NULL);
 
 -- --------------------------------------------------------
 
@@ -91,8 +101,19 @@ CREATE TABLE IF NOT EXISTS `kaligards` (
   `is_deleted` tinyint(1) NOT NULL DEFAULT '0',
   `notes` varchar(500) NOT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
+  `father_name` varchar(255) NOT NULL,
+  `phone_1` varchar(20) NOT NULL,
+  `phone_2` varchar(20) NOT NULL,
+  `id_number` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `kaligards`
+--
+
+INSERT INTO `kaligards` (`id`, `first_name`, `middle_name`, `last_name`, `dob`, `gender`, `nationality`, `image`, `code`, `address`, `id_card_type`, `id_card_image`, `joined_date`, `created_at`, `updated_at`, `is_deleted`, `notes`, `deleted_at`, `father_name`, `phone_1`, `phone_2`, `id_number`) VALUES
+(1, 'Sujit', 'Prasad', 'Baniya', '0000-00-00', 'male', 'Nepal', '/images/kaligards/1.png', 'K001', 'Ganeshtol', 'Citizenship', '', '0000-00-00', '2016-09-28 05:52:55', '2016-10-20 04:03:24', 0, 'test', NULL, 'test', 'test', 'test', 'asdasd');
 
 -- --------------------------------------------------------
 
@@ -109,16 +130,16 @@ CREATE TABLE IF NOT EXISTS `material_types` (
   `is_deleted` tinyint(1) NOT NULL DEFAULT '0',
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `material_types`
 --
 
 INSERT INTO `material_types` (`id`, `title`, `description`, `created_at`, `updated_at`, `is_deleted`, `deleted_at`) VALUES
-(1, 'Chhapawal Gold', NULL, '2016-09-26 09:17:02', '2016-09-26 09:17:02', 0, NULL),
-(2, 'Tejabi Gold', NULL, '2016-09-26 09:17:04', '2016-09-26 09:17:04', 0, NULL),
-(3, 'Silver', NULL, '2016-09-26 09:17:07', '2016-09-26 09:17:07', 0, NULL);
+(4, 'Chhapawal Gold', '', '2016-09-29 03:54:30', '2016-09-29 03:54:30', 0, NULL),
+(5, 'Tejabi Gold', '', '2016-09-29 03:54:39', '2016-09-29 03:54:39', 0, NULL),
+(6, 'Silver', '', '2016-09-29 03:54:49', '2016-09-29 03:54:49', 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -203,8 +224,17 @@ CREATE TABLE IF NOT EXISTS `products` (
   `deleted_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `length` varchar(10) NOT NULL,
+  `size` varchar(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `products`
+--
+
+INSERT INTO `products` (`id`, `code`, `title`, `category`, `sub_category`, `weight`, `additional_jarti`, `wages`, `image`, `status`, `is_ready`, `amount`, `is_deleted`, `notes`, `material_description`, `deleted_at`, `updated_at`, `created_at`, `length`, `size`) VALUES
+(3, '', 'Gold Ring', 2, 13, 0.00000, 0.00000, 0.00000, '/images/products/3.png', 'Not Started', 0, 0.00000, 0, '', '', NULL, '2016-10-20 04:03:03', '2016-09-29 04:28:28', '15', '25');
 
 -- --------------------------------------------------------
 
@@ -223,15 +253,15 @@ CREATE TABLE IF NOT EXISTS `purchase_transactions` (
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `material_id` (`material_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `purchase_transactions`
 --
 
 INSERT INTO `purchase_transactions` (`id`, `material_id`, `purchased_date`, `purchased_from`, `quantity`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(2, 3, '2016-09-26', 'asdas', 4.00000, '2016-09-26 03:20:50', '2016-09-26 09:15:33', NULL),
-(3, 1, '2016-09-20', 'Test Supplier', 400.00000, '2016-09-26 04:16:15', '2016-09-26 10:02:43', NULL);
+(4, 4, '2016-09-29', 'Test Supplier', 3000.53620, '2016-09-29 03:56:25', '2016-09-29 03:56:25', NULL),
+(5, 5, '2016-09-29', 'Test Supplier', 5000.88880, '2016-09-29 03:57:07', '2016-09-29 03:57:07', NULL);
 
 -- --------------------------------------------------------
 
@@ -329,10 +359,18 @@ CREATE TABLE IF NOT EXISTS `work_assignments` (
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
   `is_deleted` tinyint(1) NOT NULL DEFAULT '0',
   `deleted_at` timestamp NULL DEFAULT NULL,
+  `deadline` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `kaligard_id` (`kaligard_id`),
   KEY `product_id` (`product_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `work_assignments`
+--
+
+INSERT INTO `work_assignments` (`id`, `kaligard_id`, `product_id`, `notes`, `created_at`, `updated_at`, `is_deleted`, `deleted_at`, `deadline`) VALUES
+(2, 1, 3, '', '2016-09-29 04:28:28', '2016-09-29 04:28:28', 0, NULL, '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -355,7 +393,14 @@ CREATE TABLE IF NOT EXISTS `work_assignment_details` (
   PRIMARY KEY (`id`),
   KEY `assignment_id` (`assignment_id`),
   KEY `material_id` (`material_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `work_assignment_details`
+--
+
+INSERT INTO `work_assignment_details` (`id`, `assignment_id`, `material_id`, `quantity`, `notes`, `returned_quantity`, `extra_quantity`, `created_at`, `updated_at`, `is_deleted`, `deleted_at`) VALUES
+(3, 2, 4, 11.66400, '', 0.00000, 0.00000, '2016-09-29 04:28:28', '2016-09-29 04:28:28', 0, NULL);
 
 --
 -- Constraints for dumped tables

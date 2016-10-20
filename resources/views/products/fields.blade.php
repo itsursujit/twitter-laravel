@@ -31,17 +31,6 @@
                 </div>
                 <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                     <div class="panel-body">
-                        <div class="form-group col-sm-3">
-                            {!! Form::label('code', 'Code:') !!}
-                            {!! Form::text('code', null, ['class' => 'form-control']) !!}
-                        </div>
-
-                        <!-- Title Field -->
-                        <div class="form-group col-sm-9">
-                            {!! Form::label('title', 'Title:') !!}
-                            {!! Form::text('title', null, ['class' => 'form-control']) !!}
-                        </div>
-
                         <!-- Category Field -->
                         <div class="form-group col-sm-6">
                             {!! Form::label('category', 'Category:') !!}
@@ -52,6 +41,11 @@
                         <div class="form-group col-sm-6">
                             {!! Form::label('sub_category', 'Sub Category:') !!}
                             {!! Form::select('sub_category', $sub_category, null, ['class' => 'form-control']) !!}
+                        </div>
+
+                        <div class="form-group col-sm-3">
+                            {!! Form::label('code', 'Code:') !!}
+                            {!! Form::text('code', null, ['class' => 'form-control']) !!}
                         </div>
                     </div>
                 </div>
@@ -74,7 +68,7 @@
 
                         <!-- Additional Jarti Field -->
                         <div class="form-group col-sm-3">
-                            {!! Form::label('additional_jarti', 'Additional Jarti:') !!}
+                            {!! Form::label('additional_jarti', 'Jarti:') !!}
                             {!! Form::text('additional_jarti', null, ['class' => 'form-control']) !!}
                         </div>
 
@@ -86,8 +80,14 @@
 
                         <!-- Amount Field -->
                         <div class="form-group col-sm-3">
-                            {!! Form::label('amount', 'Amount:') !!}
-                            {!! Form::text('amount', null, ['class' => 'form-control']) !!}
+                            {!! Form::label('size', 'Size:') !!}
+                            {!! Form::text('size', null, ['class' => 'form-control']) !!}
+                        </div>
+
+                        <!-- Amount Field -->
+                        <div class="form-group col-sm-3">
+                            {!! Form::label('length', 'Length:') !!}
+                            {!! Form::text('length', null, ['class' => 'form-control']) !!}
                         </div>
 
                         <!-- Status Field -->
@@ -109,6 +109,19 @@
                 <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
                     <div class="panel-body">
                         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+                            <!-- Amount Field -->
+                            <div class="form-group col-sm-6">
+                                {!! Form::label('assigned_date', 'Assigned Date:') !!}
+                                {!! Form::date('assigned_date', date('Y-m-d'), ['class' => 'form-control','disabled'=>'disabled']) !!}
+                            </div>
+
+                            <!-- Amount Field -->
+                            <div class="form-group col-sm-6">
+                                {!! Form::label('deadline', 'Deadline:') !!}
+                                {!! Form::date('deadline', date('Y-m-d'), ['class' => 'form-control']) !!}
+                            </div>
+
                             <!-- Sub Category Field -->
                             <div class="form-group col-sm-6">
                                 {!! Form::label('kaligards', 'Kaligard Name:') !!}
@@ -126,10 +139,10 @@
                                 <table class="table table-bordered material-list">
                                     <thead>
                                         <tr>
-                                            <th width="25%">{!! Form::label('materials', 'Material') !!}</th>
-                                            <th width="15%">{!! Form::label('qty', 'Qty') !!}</th>
-                                            <th width="15%">{!! Form::label('extra_qty', 'Extra Qty') !!}</th>
-                                            <th width="18%">{!! Form::label('returned_qty', 'Returned Qty') !!}</th>
+                                            <th>{!! Form::label('materials', 'Material') !!}</th>
+                                            <th>{!! Form::label('qty', 'Qty') !!}</th>
+                                            <th style="display: none;">{!! Form::label('extra_qty', 'Extra Qty') !!}</th>
+                                            <th style="display: none;">{!! Form::label('returned_qty', 'Returned Qty') !!}</th>
                                             <th>{!! Form::label('note', 'Note') !!}</th>
                                         </tr>
                                     </thead>
@@ -147,14 +160,14 @@
                                                 @endif
 
                                             </td>
-                                            <td>
+                                            <td style="display: none;">
                                                 @if(empty($product))
                                                     {!! Form::text('extra_qty[]', 0, ['class' => 'form-control extra_qty','readonly' => 'readonly']) !!}
                                                 @else
                                                     {!! Form::text('extra_qty[]', 0, ['class' => 'form-control extra_qty']) !!}
                                                 @endif
                                             </td>
-                                            <td>
+                                            <td style="display: none;">
                                                 @if(empty($product))
                                                     {!! Form::text('returned_qty[]', 0, ['class' => 'form-control returned_qty','readonly' => 'readonly']) !!}
                                                 @else
@@ -179,14 +192,14 @@
                                                     @endif
 
                                                 </td>
-                                                <td>
+                                                <td style="display: none;">
                                                     @if(empty($product))
                                                         {!! Form::text('extra_qty[]', $details['extra_quantity'], ['class' => 'form-control extra_qty','readonly' => 'readonly']) !!}
                                                     @else
                                                         {!! Form::text('extra_qty[]', $details['extra_quantity'], ['class' => 'form-control extra_qty']) !!}
                                                     @endif
                                                 </td>
-                                                <td>
+                                                <td style="display: none;">
                                                     @if(empty($product))
                                                         {!! Form::text('returned_qty[]', $details['returned_quantity'], ['class' => 'form-control returned_qty','readonly' => 'readonly']) !!}
                                                     @else

@@ -9,6 +9,7 @@ use App\Models\Category;
 use App\Models\Inventory;
 use App\Models\Kaligard;
 use App\Models\MaterialType;
+use App\Models\Shop;
 use App\Models\WorkAssignment;
 use App\Models\WorkAssignmentDetail;
 use App\Repositories\ProductRepository;
@@ -54,16 +55,24 @@ class ProductController extends InfyOmBaseController
         $mainCategory = Category::where('parent_id', 0)->whereNotIn('id',[0])->lists('title', 'id')->toArray();
         $subCategory = Category::whereIn('parent_id', array_keys($mainCategory))->lists('title', 'id')->toArray();
         $kaligards = Kaligard::where('is_deleted', 0)->get()->toArray();
+        $shops = Shop::all()->toArray();
         $materials = MaterialType::where('is_deleted', 0)->lists('title', 'id')->toArray();
         $kaligardsLists = [];
+        $shopLists = [];
         foreach($kaligards as $key => $kaligard) {
             $kaligardsLists[$kaligard['id']] = $kaligard['code'] . ' - ' . $kaligard['first_name'] . ' ' . $kaligard['middle_name'] . ' ' . $kaligard['last_name'];
         }
+
+        foreach($shops as $key => $shop) {
+            $shopLists[$shop['id']] = $shop['shop_name'];
+        }
+
 
         return view('products.create')
                 ->withMainCategory($mainCategory)
                 ->withSubCategory($subCategory)
                 ->withKaligards($kaligardsLists)
+                ->withShops($shopLists)
                 ->withMaterials($materials);
     }
 
@@ -165,10 +174,16 @@ class ProductController extends InfyOmBaseController
         $kaligards = Kaligard::where('is_deleted', 0)->get()->toArray();
         $materials = MaterialType::where('is_deleted', 0)->lists('title', 'id')->toArray();
         $assignments = WorkAssignment::where('product_id', $product->id)->first()->toArray();
+        $shops = Shop::all()->toArray();
         $assignmentDetails = WorkAssignmentDetail::where('assignment_id', $assignments['id'])->get()->toArray();
         $kaligardsLists = [];
+        $shopLists = [];
         foreach($kaligards as $key => $kaligard) {
-            $kaligardsLists[$kaligard['id']] = $kaligard['first_name'] . ' ' . $kaligard['middle_name'] . ' ' . $kaligard['last_name'];
+            $kaligardsLists[$kaligard['id']] = $kaligard['code'] . ' - ' . $kaligard['first_name'] . ' ' . $kaligard['middle_name'] . ' ' . $kaligard['last_name'];
+        }
+
+        foreach($shops as $key => $shop) {
+            $shopLists[$shop['id']] = $shop['shop_name'];
         }
 
 
@@ -183,6 +198,7 @@ class ProductController extends InfyOmBaseController
             ->withSubCategory($subCategory)
             ->withKaligards($kaligardsLists)
             ->withProduct($product)
+            ->withShops($shopLists)
             ->withMaterials($materials)
             ->withAssignments($assignments)
             ->withAssignmentDetails($assignmentDetails);

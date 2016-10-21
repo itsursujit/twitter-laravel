@@ -73,6 +73,11 @@
                     <div class="panel-body">
                         <!-- Weight Field -->
                         <div class="form-group col-sm-3">
+                            {!! Form::label('shop', 'For Shop:') !!}
+                            {!! Form::select('shop', $shops, null, ['class' => 'form-control']) !!}
+                        </div>
+                        <!-- Weight Field -->
+                        <div class="form-group col-sm-3">
                             {!! Form::label('weight', 'Weight:') !!}
                             {!! Form::text('weight', null, ['class' => 'form-control']) !!}
                         </div>

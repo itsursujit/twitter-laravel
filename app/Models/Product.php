@@ -96,7 +96,8 @@ class Product extends Model
         'length',
         'size',
         'registration_code',
-        'product_type'
+        'product_type',
+        'shop'
     ];
 
     /**

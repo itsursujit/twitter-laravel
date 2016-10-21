@@ -57,7 +57,7 @@ class ProductController extends InfyOmBaseController
         $materials = MaterialType::where('is_deleted', 0)->lists('title', 'id')->toArray();
         $kaligardsLists = [];
         foreach($kaligards as $key => $kaligard) {
-            $kaligardsLists[$kaligard['id']] = $kaligard['first_name'] . ' ' . $kaligard['middle_name'] . ' ' . $kaligard['last_name'];
+            $kaligardsLists[$kaligard['id']] = $kaligard['code'] . ' - ' . $kaligard['first_name'] . ' ' . $kaligard['middle_name'] . ' ' . $kaligard['last_name'];
         }
 
         return view('products.create')

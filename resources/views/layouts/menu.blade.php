@@ -18,4 +18,6 @@
 </li>
 <li class="{{ Request::is('materialType*') ? 'active' : '' }}">
    <a href="{!! url('/materialTypes') !!}">Materials</a>
+</li><li class="{{ Request::is('shops*') ? 'active' : '' }}">
+    <a href="{!! route('shops.index') !!}">Shops</a>
 </li>

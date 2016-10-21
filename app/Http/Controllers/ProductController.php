@@ -52,8 +52,11 @@ class ProductController extends InfyOmBaseController
      */
     public function create()
     {
-        $mainCategory = Category::where('parent_id', 0)->whereNotIn('id',[0])->lists('title', 'id')->toArray();
-        $subCategory = Category::whereIn('parent_id', array_keys($mainCategory))->lists('title', 'id')->toArray();
+        $mainCategory = Category::where('parent_id', 0)->whereNotIn('id',[0])->get()->toArray();
+        $subCategory = Category::whereNotIn('parent_id', array_keys($mainCategory))->whereNotIn('id',[0])->get()->toArray();
+
+        //$mainCategory = Category::where('parent_id', 0)->whereNotIn('id',[0])->lists('title', 'id')->toArray();
+        //$subCategory = Category::whereIn('parent_id', array_keys($mainCategory))->lists('title', 'id')->toArray();
         $kaligards = Kaligard::where('is_deleted', 0)->get()->toArray();
         $shops = Shop::all()->toArray();
         $materials = MaterialType::where('is_deleted', 0)->lists('title', 'id')->toArray();
@@ -169,8 +172,8 @@ class ProductController extends InfyOmBaseController
     public function edit($id)
     {
         $product = $this->productRepository->findWithoutFail($id);
-        $mainCategory = Category::where('parent_id', 0)->whereNotIn('id',[0])->lists('title', 'id')->toArray();
-        $subCategory = Category::whereIn('parent_id', array_keys($mainCategory))->lists('title', 'id')->toArray();
+        $mainCategory = Category::where('parent_id', 0)->whereNotIn('id',[0])->get()->toArray();
+        $subCategory = Category::whereNotIn('parent_id', array_keys($mainCategory))->whereNotIn('id',[0])->get()->toArray();
         $kaligards = Kaligard::where('is_deleted', 0)->get()->toArray();
         $materials = MaterialType::where('is_deleted', 0)->lists('title', 'id')->toArray();
         $assignments = WorkAssignment::where('product_id', $product->id)->first()->toArray();

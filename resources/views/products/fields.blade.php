@@ -33,14 +33,32 @@
                     <div class="panel-body">
                         <!-- Category Field -->
                         <div class="form-group col-sm-6">
-                            {!! Form::label('category', 'Category:') !!}
-                            {!! Form::select('category', $main_category, null, ['class' => 'form-control']) !!}
+                            <label for="category">Category:</label>
+                            <select name="category" id="category" class="form-control">
+                                <option value="">Select Category</option>
+                                @foreach($main_category as $key => $category)
+                                    @if(!empty($product->category) && $product->category == $category['id'])
+                                        <option value="{{ $category['id'] }}" selected data-value="{{ $category['code'] }}">{{ $category['title'] }}</option>
+                                    @else
+                                        <option value="{{ $category['id'] }}" data-value="{{ $category['code'] }}">{{ $category['title'] }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
                         </div>
 
                         <!-- Sub Category Field -->
                         <div class="form-group col-sm-6">
-                            {!! Form::label('sub_category', 'Sub Category:') !!}
-                            {!! Form::select('sub_category', $sub_category, null, ['class' => 'form-control']) !!}
+                            <label for="sub_category">Sub Category:</label>
+                            <select name="sub_category" id="sub_category" class="form-control">
+                                <option value="">Select Sub Category</option>
+                                @foreach($sub_category as $key => $category)
+                                    @if(!empty($product->sub_category) && $product->sub_category == $category['id'])
+                                        <option value="{{ $category['id'] }}" class="category-options parent-{{ $category['parent_id'] }}" selected data-value="{{ $category['code'] }}">{{ $category['title'] }}</option>
+                                    @else
+                                        <option value="{{ $category['id'] }}" class="category-options parent-{{ $category['parent_id'] }}" data-value="{{ $category['code'] }}">{{ $category['title'] }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
                         </div>
 
                         <div class="form-group col-sm-6">
@@ -260,5 +278,26 @@
         $(document).on('click', '.btn-trash', function() {
            $(this).parent().parent().remove();
         });
+
+        $('#category').change(function(){
+            var category = $(this).val();
+            getCodes();
+            $('.category-options').hide();
+            $('.parent-'+category).show();
+        });
+
+        $('#sub_category').change(function(){
+            getCodes();
+        });
+
+        function getCodes() {
+            var cat_code = $('#category').find(':selected').data('value');
+            var subcat_code = $('#sub_category').find(':selected').data('value');
+            var code = cat_code + "" + subcat_code;
+            $('#code').val(code);
+        }
+
+        $('#category').trigger('change');
+        $('#sub_category').trigger('change');
     </script>
 @stop

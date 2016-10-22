@@ -94,7 +94,10 @@ class Product extends Model
         'notes',
         'material_description',
         'length',
-        'size'
+        'size',
+        'registration_code',
+        'product_type',
+        'shop'
     ];
 
     /**

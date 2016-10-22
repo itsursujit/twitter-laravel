@@ -71,15 +71,21 @@
         </div>
         <div class="row">
             <!-- Gender Field -->
-            <div class="form-group col-sm-6">
+            <div class="form-group col-sm-4">
                 {!! Form::label('gender', 'Gender:') !!}
                 {!! Form::select('gender', ['male'=>'Male', 'female'=>'Female'], null, ['class' => 'form-control']) !!}
             </div>
 
             <!-- Code Field -->
-            <div class="form-group col-sm-6">
+            <div class="form-group col-sm-4">
                 {!! Form::label('code', 'Kaligard Code:') !!}
                 {!! Form::text('code', null, ['class' => 'form-control']) !!}
+            </div>
+
+            <!-- Gender Field -->
+            <div class="form-group col-sm-4">
+                {!! Form::label('kaligard_type', 'Kaligard Type:') !!}
+                {!! Form::select('kaligard_type', ['salary'=>'Salary', 'wage'=>'Wage'], null, ['class' => 'form-control']) !!}
             </div>
         </div>
         <div class="row">

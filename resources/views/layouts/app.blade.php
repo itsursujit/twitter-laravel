@@ -33,11 +33,15 @@
 
         .header {
             width: 100%;
-            background: #e7e7e7;
+            background: #1e9448;/*#fd761e;*/
             color: #fff;
             height: 50px;
 
         }
+        #sidebar-wrapper{
+            background-color: #fd761e !important;
+        }
+        .sidebar-nav li a{color: #fff !important;}
     </style>
 </head>
 <body id="app-layout">
@@ -90,7 +94,7 @@
                class="btn btn-default" id="menu-toggle"><i class="fa fa-bars" aria-hidden="true"></i></a>
 
             @if (!Auth::guest())
-                <span class="pull-right" style="margin-right: 10px;margin-top: 15px"><a href="{{ url('/logout') }}"><i
+                <span class="pull-right" style="margin-right: 10px;margin-top: 15px"><a href="{{ url('/logout') }}" style="color: #fff;"><i
                                 class="fa fa-btn fa-sign-out"></i>Logout</a></span>
             @endif
         </header>

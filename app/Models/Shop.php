@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @SWG\Definition(
- *      definition="Category",
+ *      definition="Shop",
  *      required={""},
  *      @SWG\Property(
  *          property="id",
@@ -16,8 +16,28 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *          format="int32"
  *      ),
  *      @SWG\Property(
- *          property="title",
- *          description="title",
+ *          property="shop_name",
+ *          description="shop_name",
+ *          type="string"
+ *      ),
+ *      @SWG\Property(
+ *          property="code",
+ *          description="code",
+ *          type="string"
+ *      ),
+ *      @SWG\Property(
+ *          property="phone",
+ *          description="phone",
+ *          type="string"
+ *      ),
+ *      @SWG\Property(
+ *          property="address",
+ *          description="address",
+ *          type="string"
+ *      ),
+ *      @SWG\Property(
+ *          property="note",
+ *          description="note",
  *          type="string"
  *      ),
  *      @SWG\Property(
@@ -34,21 +54,22 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *      )
  * )
  */
-class Category extends Model
+class Shop extends Model
 {
     use SoftDeletes;
 
-    public $table = 'categories';
+    public $table = 'shops';
     
 
     protected $dates = ['deleted_at'];
 
 
     public $fillable = [
-        'title',
-        'parent_id',
-        'image',
-        'code'
+        'shop_name',
+        'code',
+        'phone',
+        'address',
+        'note'
     ];
 
     /**
@@ -57,7 +78,12 @@ class Category extends Model
      * @var array
      */
     protected $casts = [
-        'title' => 'string'
+        'id' => 'integer',
+        'shop_name' => 'string',
+        'code' => 'string',
+        'phone' => 'string',
+        'address' => 'string',
+        'note' => 'string'
     ];
 
     /**
@@ -66,10 +92,6 @@ class Category extends Model
      * @var array
      */
     public static $rules = [
-        'code' => 'required|unique:categories'
+        
     ];
-
-    public function parentCategory(){
-        return $this->hasOne('App\Models\Category', 'id', 'parent_id');
-    }
 }

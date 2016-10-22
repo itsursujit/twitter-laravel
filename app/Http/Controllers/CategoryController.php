@@ -138,19 +138,6 @@ class CategoryController extends InfyOmBaseController
     {
         $category = $this->categoryRepository->findWithoutFail($id);
 
-        $input = $request->all();
-        if(!empty($input['image']) ){
-            $image = $request->file('image');
-            if($image->isValid()) {
-                $destinationPath = public_path().'/images/categories/';
-                $fileName = $category->id . '.'.$image->getClientOriginalExtension();
-                $filePath = '/images/categories/' . $fileName;
-                $this->upload($image, $destinationPath, $fileName);
-
-                $category->image = $filePath;
-                $category->update();
-            }
-        }
 
         if (empty($category)) {
             Flash::error('Category not found');
@@ -159,6 +146,18 @@ class CategoryController extends InfyOmBaseController
         }
 
         $category = $this->categoryRepository->update($request->all(), $id);
+
+        $input = $request->all();
+        if(!empty($input['image']) ){
+            $image = $request->file('image');
+            $destinationPath = public_path().'/images/categories/';
+            $fileName = $category->id . '.'.$image->getClientOriginalExtension();
+            $filePath = '/images/categories/' . $fileName;
+            $this->upload($image, $destinationPath, $fileName);
+
+            $category->image = $filePath;
+            $category->update();
+        }
 
         Flash::success('Category updated successfully.');
 

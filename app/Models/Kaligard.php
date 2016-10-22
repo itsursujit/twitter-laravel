@@ -115,7 +115,8 @@ class Kaligard extends Model
         'father_name',
         'phone_1',
         'phone_2',
-        'id_number'
+        'id_number',
+        'kaligard_type'
     ];
 
     /**

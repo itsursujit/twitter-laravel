@@ -38,11 +38,42 @@ class ProductController extends InfyOmBaseController
      */
     public function index(Request $request)
     {
-        $this->productRepository->pushCriteria(new RequestCriteria($request));
-        $products = $this->productRepository->all();
+        $status = $request->get('status');
+        $cat = $request->get('cat');
+        $sts = $status;
+        switch ($status){
+            case "not-started":
+                $status = "Not Started";
+                break;
+            case "in-progress":
+                $status = "In Progress";
+                break;
+            case "completed":
+                $status = "Completed";
+                break;
+            default:
+                $status = null;
+                break;
+        }
+        if(!empty($status)) {
+            $this->productRepository->pushCriteria(new RequestCriteria($request));
+            if(!empty($cat)){
+                $products = $this->productRepository->with('categories', 'subCategories')->findWhere(["status" => $status ])->all();
+            }
+            else{
+                $products = $this->productRepository->with('categories', 'subCategories')->findWhere(["status" => $status ])->all();
+            }
+
+        }
+        else{
+            $this->productRepository->pushCriteria(new RequestCriteria($request));
+            $products = $this->productRepository->with('categories', 'subCategories')->all();
+        }
+
 
         return view('products.index')
-            ->with('products', $products);
+            ->with('products', $products)
+            ->withStatus($sts);
     }
 
     /**
@@ -171,7 +202,7 @@ class ProductController extends InfyOmBaseController
      */
     public function edit($id)
     {
-        $product = $this->productRepository->findWithoutFail($id);
+        $product = $this->productRepository->with('categories', 'subCategories')->findWithoutFail($id);
         $mainCategory = Category::where('parent_id', 0)->whereNotIn('id',[0])->get()->toArray();
         $subCategory = Category::whereNotIn('parent_id', array_keys($mainCategory))->whereNotIn('id',[0])->get()->toArray();
         $kaligards = Kaligard::where('is_deleted', 0)->get()->toArray();

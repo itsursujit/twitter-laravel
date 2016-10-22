@@ -15,7 +15,7 @@
         <tr>
             <td>
                 @if(!empty($product->image))
-                    <img src="{{ $product->image }}" style="width:120px;" class="img img-responsive" alt="{!! $product->title !!}">
+                    <img src="{{ !empty($product->categories)?$product->categories->image:!empty($product->subCategories)?$product->subCategories->image:$product->image }}" style="width:120px;" class="img img-responsive" alt="{!! $product->title !!}">
                 @endif
             </td>
             <td>{!! $product->code !!}</td>

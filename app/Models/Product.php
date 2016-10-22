@@ -124,4 +124,12 @@ class Product extends Model
     public static $rules = [
         
     ];
+
+    public function categories(){
+        return $this->hasOne('App\Models\Category', 'id', 'category');
+    }
+
+    public function subCategories(){
+        return $this->hasOne('App\Models\Category', 'id', 'sub_category');
+    }
 }

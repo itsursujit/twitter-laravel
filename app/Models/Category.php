@@ -72,4 +72,8 @@ class Category extends Model
     public function parentCategory(){
         return $this->hasOne('App\Models\Category', 'id', 'parent_id');
     }
+
+    public function products(){
+        return $this->hasMany('App\Models\Product', 'category', 'id');
+    }
 }

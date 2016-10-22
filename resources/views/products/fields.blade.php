@@ -8,16 +8,17 @@
     </style>
 @stop
 <div class="row">
-    {{--<div class="col-sm-3">
+    <div class="col-sm-3">
         <div class="image-holder img-thumbnail">
-            <img src="{{ !empty($product->image)?$product->image:'' }}" alt="" class="img img-responsive">
+            <img src="{{ !empty($product->categories)?$product->categories->image:!empty($product->subCategories)?$product->subCategories->image:!empty($product->image)?$product->image:'' }}" alt="" class="img img-responsive">
         </div>
+        {{--
         <div class="form-group">
             {!! Form::label('image', ' ') !!}
             {!! Form::file('image', null, ['class' => 'form-control']) !!}
             --}}{{--<input type="button" value="Upload Product Image" class="btn btn-danger" onclick="document.getElementById('image').click();" />--}}{{--
-        </div>
-    </div>--}}
+        </div>--}}
+    </div>
     <div class="col-sm-9"><!-- Code Field -->
 
         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
@@ -293,6 +294,12 @@
         function getCodes() {
             var cat_code = $('#category').find(':selected').data('value');
             var subcat_code = $('#sub_category').find(':selected').data('value');
+            if(typeof cat_code == "undefined"){
+                cat_code = "";
+            }
+            if(typeof subcat_code == "undefined"){
+                subcat_code = "";
+            }
             var code = cat_code + "" + subcat_code;
             $('#code').val(code);
         }

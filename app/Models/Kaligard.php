@@ -147,4 +147,8 @@ class Kaligard extends Model
     public static $rules = [
         
     ];
+
+    public function products(){
+        return $this->belongsToMany('App\Models\Product', 'work_assignments');
+    }
 }

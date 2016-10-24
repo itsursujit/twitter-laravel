@@ -14,12 +14,12 @@
     @foreach($products as $product)
         <tr>
             <td>
-                @if(!empty($product->image) || !empty($product->categories->image) || !empty($product->subCategories->image))
-                    <img src="{{ !empty($product->subCategories->image)?$product->subCategories->image:!empty($product->categories->image)?$product->categories->image:$product->image }}" style="width:120px;" class="img img-responsive" alt="{!! $product->title !!}">
+                @if(!empty($product->image) || !empty($product->subCategories->image))
+                    <img src="{{ !empty($product->subCategories->image)?$product->subCategories->image:$product->image }}" style="width:120px;" class="img img-responsive" alt="{!! $product->title !!}">
                 @endif
             </td>
             <td>{!! $product->code !!}</td>
-            <td>{!! !empty($product->subCategories)?$product->subCategories->title:$product->title !!}</td>
+            <td>{!! !empty($product->subCategories->title)?$product->subCategories->title:$product->title !!}</td>
             <td>{!! $product->weight !!}</td>
             <td>{!! $product->additional_jarti !!}</td>
             <td>{!! $product->wages !!}</td>

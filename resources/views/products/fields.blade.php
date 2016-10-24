@@ -10,7 +10,9 @@
 <div class="row">
     <div class="col-sm-3">
         <div class="image-holder img-thumbnail">
+            @if(!empty($product))
             <img src="{{ !empty($product->subCategories)?$product->subCategories->image:!empty($product->categories)?$product->categories->image:$product->image }}" style="width:120px;" class="img img-responsive" alt="{!! $product->title !!}">
+            @endif
         </div>
         {{--
         <div class="form-group">

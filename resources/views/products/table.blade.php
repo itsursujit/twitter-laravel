@@ -14,8 +14,8 @@
     @foreach($products as $product)
         <tr>
             <td>
-                @if(!empty($product->image) || !empty($product->categories) || !empty($product->subCategories))
-                    <img src="{{ !empty($product->subCategories)?$product->subCategories->image:!empty($product->categories)?$product->categories->image:$product->image }}" style="width:120px;" class="img img-responsive" alt="{!! $product->title !!}">
+                @if(!empty($product->image) || !empty($product->categories->image) || !empty($product->subCategories->image))
+                    <img src="{{ !empty($product->subCategories->image)?$product->subCategories->image:!empty($product->categories->image)?$product->categories->image:$product->image }}" style="width:120px;" class="img img-responsive" alt="{!! $product->title !!}">
                 @endif
             </td>
             <td>{!! $product->code !!}</td>

@@ -29,7 +29,7 @@
                     <label for="" class="label label-danger">{!! $product->status !!}</label>
                 @elseif($product->status == 'In Progress')
                     <label for="" class="label label-warning">{!! $product->status !!}</label>
-                @elseif($product->status == 'Complete')
+                @elseif($product->status == 'Completed')
                     <label for="" class="label label-success">{!! $product->status !!}</label>
                 @endif
             </td>

@@ -116,7 +116,8 @@ class Kaligard extends Model
         'phone_1',
         'phone_2',
         'id_number',
-        'kaligard_type'
+        'kaligard_type',
+        'joined_date'
     ];
 
     /**
@@ -136,7 +137,8 @@ class Kaligard extends Model
         'address' => 'string',
         'id_card_type' => 'string',
         'id_card_image' => 'string',
-        'notes' => 'string'
+        'notes' => 'string',
+        'joined_date' => 'date'
     ];
 
     /**

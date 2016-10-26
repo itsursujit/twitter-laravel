@@ -127,6 +127,18 @@
                             {!! Form::text('length', null, ['class' => 'form-control']) !!}
                         </div>
 
+                        <!-- Amount Field -->
+                        <div class="form-group col-sm-3">
+                            {!! Form::label('quality', 'Quality:') !!}
+                            {!! Form::text('quality', null, ['class' => 'form-control']) !!}
+                        </div>
+
+                        <!-- Amount Field -->
+                        <div class="form-group col-sm-3">
+                            {!! Form::label('stone', 'Stone:') !!}
+                            {!! Form::text('stone', null, ['class' => 'form-control']) !!}
+                        </div>
+
                         <!-- Status Field -->
                         <div class="form-group col-sm-6">
                             {!! Form::label('status', 'Status:') !!}

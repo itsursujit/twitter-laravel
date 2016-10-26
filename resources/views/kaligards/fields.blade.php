@@ -87,6 +87,12 @@
                 {!! Form::label('kaligard_type', 'Kaligard Type:') !!}
                 {!! Form::select('kaligard_type', ['salary'=>'Salary', 'wage'=>'Wage'], null, ['class' => 'form-control']) !!}
             </div>
+
+            <!-- Code Field -->
+            <div class="form-group col-sm-4">
+                {!! Form::label('joined_date', 'Joined Date:') !!}
+                {!! Form::date('joined_date', null, ['class' => 'form-control']) !!}
+            </div>
         </div>
         <div class="row">
             <!-- Address Field -->

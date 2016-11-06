@@ -35,7 +35,7 @@ class MaterialTypeController extends InfyOmBaseController
         $this->materialTypeRepository->pushCriteria(new RequestCriteria($request));
         $materialTypes = $this->materialTypeRepository->all();
 
-        $materialTypes = DB::select("SELECT material_types.*, inventories.* FROM material_types INNER JOIN inventories ON material_types.id = inventories.material_id");
+        $materialTypes = DB::select("SELECT inventories.*,material_types.* FROM material_types INNER JOIN inventories ON material_types.id = inventories.material_id");
         //$materialTypes = json_decode(json_encode($materialTypes));
         //dd($materialTypes);
 

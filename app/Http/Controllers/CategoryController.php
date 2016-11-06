@@ -10,6 +10,7 @@ use App\Repositories\CategoryRepository;
 use App\Http\Controllers\AppBaseController as InfyOmBaseController;
 use Illuminate\Http\Request;
 use Flash;
+use Illuminate\Support\Facades\DB;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 
@@ -175,15 +176,24 @@ class CategoryController extends InfyOmBaseController
     {
         $category = $this->categoryRepository->findWithoutFail($id);
 
+
+
         if (empty($category)) {
             Flash::error('Category not found');
 
             return redirect(route('categories.index'));
         }
 
-        $this->categoryRepository->delete($id);
+        $relatedCategories = DB::select("SELECT * FROM products WHERE category = $id OR sub_category = $id");
+        if(count($relatedCategories)>0){
+            Flash::error('The Category is linked with Product and cannot be deleted.');
+        }
+        else
+        {
+            $this->categoryRepository->delete($id);
 
-        Flash::success('Category deleted successfully.');
+            Flash::success('Category deleted successfully.');
+        }
 
         return redirect(route('categories.index'));
     }

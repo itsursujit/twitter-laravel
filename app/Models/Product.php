@@ -97,7 +97,9 @@ class Product extends Model
         'size',
         'registration_code',
         'product_type',
-        'shop'
+        'shop',
+        'quality',
+        'stone'
     ];
 
     /**

@@ -147,9 +147,16 @@ class ShopController extends InfyOmBaseController
             return redirect(route('shops.index'));
         }
 
-        $this->shopRepository->delete($id);
+        $relatedShops = DB::select("SELECT * FROM products WHERE shop = $id");
+        if(count($relatedShops)>0){
+            Flash::error('The Shop is linked with Product and cannot be deleted.');
+        }
+        else
+        {
+            $this->shopRepository->delete($id);
 
-        Flash::success('Shop deleted successfully.');
+            Flash::success('Shop deleted successfully.');
+        }
 
         return redirect(route('shops.index'));
     }

@@ -19,7 +19,7 @@
                 @endif
             </td>
             <td>{!! $product->code !!}</td>
-            <td>{!! $product->title !!}</td>
+            <td>{!! !empty($product->subCategories->title)?$product->subCategories->title:$product->title !!}</td>
             <td>{!! $product->weight !!}</td>
             <td>{!! $product->additional_jarti !!}</td>
             <td>{!! $product->wages !!}</td>
@@ -29,7 +29,7 @@
                     <label for="" class="label label-danger">{!! $product->status !!}</label>
                 @elseif($product->status == 'In Progress')
                     <label for="" class="label label-warning">{!! $product->status !!}</label>
-                @elseif($product->status == 'Complete')
+                @elseif($product->status == 'Completed')
                     <label for="" class="label label-success">{!! $product->status !!}</label>
                 @endif
             </td>

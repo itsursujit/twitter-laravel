@@ -9,7 +9,7 @@
 <div class="row">
     <div class="col-sm-3">
         <div class="image-holder">
-            <img src="{{ !empty($kaligard->image)?$kaligard->image:'' }}" alt="" class="img img-responsive">
+            <img src="{{ !empty($kaligard->image)?URL::to($kaligard->image):'' }}" alt="" class="img img-responsive">
         </div>
         <div class="form-group">
             {!! Form::label('image', 'Image:') !!}

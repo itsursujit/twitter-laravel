@@ -207,9 +207,16 @@ class ProductController extends InfyOmBaseController
         $subCategory = Category::whereNotIn('parent_id', array_keys($mainCategory))->whereNotIn('id',[0])->get()->toArray();
         $kaligards = Kaligard::where('is_deleted', 0)->get()->toArray();
         $materials = MaterialType::where('is_deleted', 0)->lists('title', 'id')->toArray();
-        $assignments = WorkAssignment::where('product_id', $product->id)->first()->toArray();
         $shops = Shop::all()->toArray();
-        $assignmentDetails = WorkAssignmentDetail::where('assignment_id', $assignments['id'])->get()->toArray();
+        $assignments = WorkAssignment::where('product_id', $product->id)->first();
+
+        $assignmentDetails = [];
+        if(count($assignments)>0){
+            $assignments = $assignments->toArray();
+            $assignmentDetails = WorkAssignmentDetail::where('assignment_id', $assignments['id'])->get()->toArray();
+        }
+
+
         $kaligardsLists = [];
         $shopLists = [];
         foreach($kaligards as $key => $kaligard) {

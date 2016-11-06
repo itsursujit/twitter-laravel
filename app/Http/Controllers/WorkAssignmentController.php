@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use App\Http\Requests\CreateWorkAssignmentRequest;
 use App\Http\Requests\UpdateWorkAssignmentRequest;
+use App\Models\Kaligard;
 use App\Repositories\WorkAssignmentRepository;
 use App\Http\Controllers\AppBaseController as InfyOmBaseController;
 use Illuminate\Http\Request;
 use Flash;
+use Illuminate\Support\Facades\DB;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 
@@ -31,7 +33,13 @@ class WorkAssignmentController extends InfyOmBaseController
     public function index(Request $request)
     {
         $this->workAssignmentRepository->pushCriteria(new RequestCriteria($request));
-        $workAssignments = $this->workAssignmentRepository->all();
+        $workAssignments = DB::select("SELECT k.*, k.code as kaligard_code, p.*, p.code as product_code,c.title as category, sc.title as sub_category FROM kaligards k 
+                                        INNER JOIN work_assignments wa ON k.id=wa.kaligard_id
+                                        INNER JOIN products p ON p.id=wa.product_id
+                                        INNER JOIN categories c ON c.id=p.category
+                                        INNER JOIN categories sc ON sc.id=p.sub_category
+                                        ");
+        /*$workAssignments = Kaligard::with('products')->get()->toArray();*/
 
         return view('workAssignments.index')
             ->with('workAssignments', $workAssignments);

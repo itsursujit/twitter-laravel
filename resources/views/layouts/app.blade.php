@@ -8,19 +8,18 @@
     <title>Laravel</title>
 
     <!-- Fonts -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet'
+    <link href="{{ URL::to('/vendor/font-awesome/css/font-awesome.css') }}" rel='stylesheet'
           type='text/css'>
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700" rel='stylesheet' type='text/css'>
 
     <!-- Bootstrap -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.1/css/bootstrap-toggle.min.css">
+    <link href="{{ URL::to('/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ URL::to('/assets/css/bootstrap-toggle.min.css') }}">
 
     <!-- DataTable Bootstrap -->
     <link href="https://cdn.datatables.net/1.10.11/css/dataTables.bootstrap.min.css" rel="stylesheet">
 
-    <link href="http://blackrockdigital.github.io/startbootstrap-simple-sidebar/css/bootstrap.min.css" rel="stylesheet">
-    <link href="http://blackrockdigital.github.io/startbootstrap-simple-sidebar/css/simple-sidebar.css"
+    <link href="{{ URL::to('/assets/css/simple-sidebar.css') }}"
           rel="stylesheet">
     @yield('styles')
     <style type="text/css">
@@ -61,7 +60,7 @@
                 </button>
 
                 <!-- Branding Image -->
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="{{ URL::to('/') }}">
                     United Gold Mart
                 </a>
             </div>
@@ -69,15 +68,15 @@
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ url('/home') }}">Home</a></li>
+                    <li><a href="{{ URL::to('/home') }}">Home</a></li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Authentication Links -->
                     @if (Auth::guest())
-                        <li><a href="{{ url('/login') }}">Login</a></li>
-                        <li><a href="{{ url('/register') }}">Register</a></li>
+                        <li><a href="{{ URL::to('/login') }}">Login</a></li>
+                        <li><a href="{{ URL::to('/register') }}">Register</a></li>
                     @endif
                 </ul>
             </div>
@@ -94,7 +93,7 @@
                class="btn btn-default" id="menu-toggle"><i class="fa fa-bars" aria-hidden="true"></i></a>
 
             @if (!Auth::guest())
-                <span class="pull-right" style="margin-right: 10px;margin-top: 15px"><a href="{{ url('/logout') }}" style="color: #fff;"><i
+                <span class="pull-right" style="margin-right: 10px;margin-top: 15px"><a href="{{ URL::to('/logout') }}" style="color: #fff;"><i
                                 class="fa fa-btn fa-sign-out"></i>Logout</a></span>
             @endif
         </header>
@@ -121,12 +120,10 @@
     </div>
     <!-- /#page-content-wrapper -->
 
-    <script src="http://blackrockdigital.github.io/startbootstrap-simple-sidebar/js/jquery.js"></script>
-    <script src="http://blackrockdigital.github.io/startbootstrap-simple-sidebar/js/bootstrap.min.js"></script>
     <!-- JavaScripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.1/js/bootstrap-toggle.min.js"></script>
+    <script src="{{ URL::to('/vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ URL::to('/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ URL::to('/assets/js/bootstrap-toggle.min.js') }}"></script>
 
     <!-- Datatables -->
     <script src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>

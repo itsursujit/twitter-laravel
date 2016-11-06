@@ -16,7 +16,7 @@
         <tr>
             <td>
                 @if(!empty($kaligard->image))
-                    <img src="{{ $kaligard->image }}" style="width:120px;" class="img img-responsive" alt="{!! $kaligard->first_name !!}">
+                    <img src="{{ URL::to($kaligard->image) }}" style="width:120px;" class="img img-responsive" alt="{!! $kaligard->first_name !!}">
                 @endif
             </td>
             <td>{!! $kaligard->code !!}</td>

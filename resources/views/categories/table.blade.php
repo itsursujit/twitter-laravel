@@ -14,7 +14,7 @@
             <tr>
                 <td>
                     @if(!empty($category->image))
-                        <img src="{{ $category->image }}" style="width: 120px;" class="img img-responsive" alt="{!! $category->title !!}">
+                        <img src="{{ URL::to($category->image) }}" style="width: 120px;" class="img img-responsive" alt="{!! $category->title !!}">
                     @endif
                 </td>
                 <td>{!! $category->id !!}</td>

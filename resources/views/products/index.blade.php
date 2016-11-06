@@ -3,7 +3,7 @@
 @section('content')
         <div class="pull-left col-md-8">
             <h1>Products</h1>
-            <form action="{{ url('/products') }}">
+            <form action="{{ URL::to('/products') }}">
                 <div class="row">
                     <div class="col-md-5">
                         <select name="status" id="status" class="form-control">

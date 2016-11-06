@@ -66,7 +66,7 @@ class Category extends Model
      * @var array
      */
     public static $rules = [
-        'code' => 'required|unique:categories'
+        //'code' => 'required|unique:categories'
     ];
 
     public function parentCategory(){

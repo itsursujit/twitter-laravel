@@ -47,7 +47,7 @@
                     <div class="or-box">
                         <div class="row">
                             <div class="col-md-12 row-block">
-                                <a href="{{ url('auth/twitter') }}" class="btn btn-lg btn-info btn-block">
+                                <a href="{{ URL::to('auth/twitter') }}" class="btn btn-lg btn-info btn-block">
                                     <strong>Login With Twitter</strong>
                                 </a>
                             </div>

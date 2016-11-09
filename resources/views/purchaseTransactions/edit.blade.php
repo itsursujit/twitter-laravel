@@ -10,7 +10,7 @@
         @include('adminlte-templates::common.errors')
 
         <div class="row">
-            {!! Form::model($purchaseTransaction, ['route' => ['purchaseTransactions.update', $purchaseTransaction->id], 'method' => 'patch']) !!}
+            {!! Form::model($purchase_transaction, ['route' => ['purchaseTransactions.update', $purchase_transaction->id], 'method' => 'patch']) !!}
 
             @include('purchaseTransactions.fields')
 

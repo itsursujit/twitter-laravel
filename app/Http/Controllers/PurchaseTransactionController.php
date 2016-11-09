@@ -113,8 +113,10 @@ class PurchaseTransactionController extends InfyOmBaseController
 
             return redirect(route('purchaseTransactions.index'));
         }
-
-        return view('purchaseTransactions.edit')->with('purchaseTransaction', $purchaseTransaction);
+        $materials = $this->materialRepository->lists('title','id');
+        return view('purchaseTransactions.edit')
+            ->withPurchaseTransaction($purchaseTransaction)
+            ->withMaterials($materials);
     }
 
     /**

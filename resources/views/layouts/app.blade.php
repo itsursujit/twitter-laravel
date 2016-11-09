@@ -107,7 +107,7 @@
 
             <div class="row">
             @if (Config::has('infyom.laravel_generator.add_on.menu.enabled')) 
-                <div class="col-md-9 col-md-offset-3">
+                <div class="col-md-9 col-md-offset-2">
                     @yield('content')
                 </div>
             @else

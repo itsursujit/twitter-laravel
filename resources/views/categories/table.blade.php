@@ -1,23 +1,23 @@
 <table class="table table-responsive" id="categories-table">
     <thead>
     <tr>
+        <th>#</th>
         <th>Image</th>
-        <th>Id</th>
         <th>Title</th>
         <th>Parent Category</th>
         <th colspan="3">Action</th>
     </tr>
     </thead>
     <tbody>
-    @foreach($categories as $category)
+    @foreach($categories as $key => $category)
         @if($category->id)
             <tr>
+                <td>{{ $key }}</td>
                 <td>
                     @if(!empty($category->image))
                         <img src="{{ URL::to($category->image) }}" style="width: 120px;" class="img img-responsive" alt="{!! $category->title !!}">
                     @endif
                 </td>
-                <td>{!! $category->id !!}</td>
                 <td>{!! $category->title !!}</td>
 
                 <td>{!! $category->parentCategory->title !!}</td>

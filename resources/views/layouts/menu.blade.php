@@ -1,6 +1,9 @@
 <li class="{{ Request::is('home*') ? 'active' : '' }}">
    <a href="{!! URL::to('/home') !!}">Dashboards</a>
 </li>
+<li class="{{ (Request::is('designs*') || Request::is('design*') ) ? 'active' : '' }}">
+   <a href="{!! URL::to('/designs') !!}">Designs</a>
+</li>
 <li class="{{ (Request::is('categories*') || Request::is('category*') ) ? 'active' : '' }}">
    <a href="{!! URL::to('/categories') !!}">Categories</a>
 </li>

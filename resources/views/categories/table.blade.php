@@ -2,7 +2,6 @@
     <thead>
     <tr>
         <th>#</th>
-        <th>Image</th>
         <th>Title</th>
         <th>Parent Category</th>
         <th colspan="3">Action</th>
@@ -13,11 +12,6 @@
         @if($category->id)
             <tr>
                 <td>{{ $key }}</td>
-                <td>
-                    @if(!empty($category->image))
-                        <img src="{{ URL::to($category->image) }}" style="width: 120px;" class="img img-responsive" alt="{!! $category->title !!}">
-                    @endif
-                </td>
                 <td>{!! $category->title !!}</td>
 
                 <td>{!! $category->parentCategory->title !!}</td>

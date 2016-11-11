@@ -59,16 +59,16 @@ class ProductController extends InfyOmBaseController
         if(!empty($status)) {
             $this->productRepository->pushCriteria(new RequestCriteria($request));
             if(!empty($cat)){
-                $products = $this->productRepository->with('categories', 'subCategories')->findWhere(["status" => $status ])->all();
+                $products = $this->productRepository->with(['design', 'design.categories', 'design.subCategories'])->findWhere(["status" => $status ])->all();
             }
             else{
-                $products = $this->productRepository->with('categories', 'subCategories')->findWhere(["status" => $status ])->all();
+                $products = $this->productRepository->with(['design', 'design.categories', 'design.subCategories'])->findWhere(["status" => $status ])->all();
             }
 
         }
         else{
             $this->productRepository->pushCriteria(new RequestCriteria($request));
-            $products = $this->productRepository->with('categories', 'subCategories')->all();
+            $products = $this->productRepository->with(['design', 'design.categories', 'design.subCategories'])->all();
         }
 
 
@@ -209,7 +209,7 @@ class ProductController extends InfyOmBaseController
      */
     public function edit($id)
     {
-        $product = $this->productRepository->with('categories', 'subCategories')->findWithoutFail($id);
+        $product = $this->productRepository->with(['design', 'design.categories', 'design.subCategories'])->findWithoutFail($id);
         $mainCategory = Category::where('parent_id', 0)->whereNotIn('id',[0])->get()->toArray();
         $subCategory = Category::whereNotIn('parent_id', array_keys($mainCategory))->whereNotIn('id',[0])->get()->toArray();
         $kaligards = Kaligard::where('is_deleted', 0)->get()->toArray();

@@ -134,4 +134,8 @@ class Product extends Model
     public function subCategories(){
         return $this->hasOne('App\Models\Category', 'id', 'sub_category');
     }
+
+    public function design(){
+        return $this->hasOne('App\Models\Design', 'id', 'code');
+    }
 }

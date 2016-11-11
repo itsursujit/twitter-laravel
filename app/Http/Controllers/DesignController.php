@@ -37,7 +37,6 @@ class DesignController extends InfyOmBaseController
         $subCategory = Category::whereNotIn('parent_id', array_keys($mainCategory))->whereNotIn('id',[0])->get()->toArray();
         $this->designRepository->pushCriteria(new RequestCriteria($request));
         $designs = $this->designRepository->with('categories', 'subCategories')->all();
-        dd($designs);
         return view('designs.index')
             ->withMainCategory($mainCategory)
             ->withSubCategory($subCategory)

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use App\Models\Category;
+use App\Models\Design;
 use App\Models\Kaligard;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -28,7 +29,8 @@ class HomeController extends Controller
     public function index()
     {
         $kaligards = Kaligard::with('products')->get()->toArray();
-        $category = Category::with('products', 'parentCategory')->whereNotIn('id', [0])->get()->toArray();
+        //$category = Category::with('products', 'parentCategory')->whereNotIn('id', [0])->get()->toArray();
+        $category = Design::with('categories', 'subCategories','products')->get()->toArray();
 
         foreach($category as $i => $v) {
             $notStartedCount = 0;

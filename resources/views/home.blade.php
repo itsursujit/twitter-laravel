@@ -27,7 +27,7 @@
                             </div>
                             <div class="col-md-9">
                                 <div class="category-title">
-                                    <h4>{{ $category['title'] }}</h4>
+                                    <h4>{{ $category['code'] }}</h4>
                                 </div>
                                 <div class="category-description">
                                     <span class="label label-danger"><a href="{{ URL::to('/products/?status=not-started&cat='.$category['id']) }}" class="white">{{ $category['products']['not_started'] }} Not Started</a></span>

@@ -101,4 +101,8 @@ class Design extends Model
     public function subCategories(){
         return $this->hasOne('App\Models\Category', 'id', 'sub_category');
     }
+
+    public function products(){
+        return $this->hasMany('App\Models\Product', 'code', 'id');
+    }
 }

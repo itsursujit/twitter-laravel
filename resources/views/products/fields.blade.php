@@ -10,8 +10,8 @@
 <div class="row">
     <div class="col-sm-3">
         <div class="image-holder img-thumbnail">
-            @if(!empty($product->image))
-                <img src="{{ !empty($product->categories)?URL::to($product->categories->image):!empty($product->subCategories)?URL::to($product->subCategories->image):URL::to($product->image) }}" style="width:120px;" class="img img-responsive" alt="{!! $product->title !!}">
+            @if(!empty($product->design->image))
+                <img src="{{ $product->design->image }}" style="width:120px;" class="img img-responsive" alt="{!! $product->title !!}">
             @endif
         </div>
         {{--

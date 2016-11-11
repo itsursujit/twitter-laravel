@@ -1,9 +1,3 @@
-<!-- Code Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('code', 'Code:') !!}
-    {!! Form::text('code', null, ['class' => 'form-control']) !!}
-</div>
-
 <!-- Category Field -->
 <div class="form-group col-sm-6">
     <label for="category">Category:</label>
@@ -32,6 +26,11 @@
             @endif
         @endforeach
     </select>
+</div>
+<!-- Code Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('code', 'Code:') !!}
+    {!! Form::text('code', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Image Field -->

@@ -33,7 +33,7 @@
                     </h4>
                 </div>
                 <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                    <div class="panel-body">
+                    <div class="panel-body">{{--
                         <!-- Category Field -->
                         <div class="form-group col-sm-6">
                             <label for="category">Category:</label>
@@ -62,11 +62,11 @@
                                     @endif
                                 @endforeach
                             </select>
-                        </div>
+                        </div>--}}
 
                         <div class="form-group col-sm-6">
                             {!! Form::label('code', 'Design Code:') !!}
-                            {!! Form::text('code', null, ['class' => 'form-control']) !!}
+                            {!! Form::select('code', $designs, null, ['class' => 'form-control']) !!}
                         </div>
 
                         <div class="form-group col-sm-6">

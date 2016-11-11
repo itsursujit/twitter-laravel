@@ -11,7 +11,7 @@
     </style>
 <div class="container">
     <div class="row">
-        <div class="col-md-11 col-md-offset-1">
+        <div class="col-md-11">
             <div class="col-md-6">
                 <div class="panel panel-default">
                     <div class="panel-heading">

@@ -6,6 +6,7 @@ use App\Http\Requests;
 use App\Http\Requests\CreateDesignRequest;
 use App\Http\Requests\UpdateDesignRequest;
 use App\Models\Category;
+use App\Models\Design;
 use App\Repositories\DesignRepository;
 use App\Http\Controllers\AppBaseController as InfyOmBaseController;
 use Illuminate\Http\Request;
@@ -35,8 +36,8 @@ class DesignController extends InfyOmBaseController
         $mainCategory = Category::where('parent_id', 0)->whereNotIn('id',[0])->get()->toArray();
         $subCategory = Category::whereNotIn('parent_id', array_keys($mainCategory))->whereNotIn('id',[0])->get()->toArray();
         $this->designRepository->pushCriteria(new RequestCriteria($request));
-        $designs = $this->designRepository->all();
-        $designs = DB::select("SELECT * FROM designs");
+        $designs = $this->designRepository->with('categories', 'subCategories')->all();
+        dd($designs);
         return view('designs.index')
             ->withMainCategory($mainCategory)
             ->withSubCategory($subCategory)

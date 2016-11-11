@@ -6,6 +6,7 @@ use App\Http\Requests;
 use App\Http\Requests\CreateProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Category;
+use App\Models\Design;
 use App\Models\Inventory;
 use App\Models\Kaligard;
 use App\Models\MaterialType;
@@ -91,8 +92,13 @@ class ProductController extends InfyOmBaseController
         $kaligards = Kaligard::where('is_deleted', 0)->get()->toArray();
         $shops = Shop::all()->toArray();
         $materials = MaterialType::where('is_deleted', 0)->lists('title', 'id')->toArray();
+        $designList = Design::with('categories', 'subCategories')->get()->toArray();
         $kaligardsLists = [];
         $shopLists = [];
+        $designs = [];
+        foreach($designList as $key => $design) {
+            $designs[$design['id']] = $design['code'] . ' - ' . $design['sub_categories']['title'];
+        }
         foreach($kaligards as $key => $kaligard) {
             $kaligardsLists[$kaligard['id']] = $kaligard['code'] . ' - ' . $kaligard['first_name'] . ' ' . $kaligard['middle_name'] . ' ' . $kaligard['last_name'];
         }
@@ -107,7 +113,8 @@ class ProductController extends InfyOmBaseController
                 ->withSubCategory($subCategory)
                 ->withKaligards($kaligardsLists)
                 ->withShops($shopLists)
-                ->withMaterials($materials);
+                ->withMaterials($materials)
+                ->withDesigns($designs);
     }
 
     /**
@@ -209,8 +216,13 @@ class ProductController extends InfyOmBaseController
         $materials = MaterialType::where('is_deleted', 0)->lists('title', 'id')->toArray();
         $shops = Shop::all()->toArray();
         $assignments = WorkAssignment::where('product_id', $product->id)->first();
+        $designList = Design::with('categories', 'subCategories')->get()->toArray();
 
         $assignmentDetails = [];
+        $designs = [];
+        foreach($designList as $key => $design) {
+            $designs[$design['id']] = $design['code'] . ' - ' . $design['sub_categories']['title'];
+        }
         if(count($assignments)>0){
             $assignments = $assignments->toArray();
             $assignmentDetails = WorkAssignmentDetail::where('assignment_id', $assignments['id'])->get()->toArray();
@@ -242,7 +254,8 @@ class ProductController extends InfyOmBaseController
             ->withShops($shopLists)
             ->withMaterials($materials)
             ->withAssignments($assignments)
-            ->withAssignmentDetails($assignmentDetails);
+            ->withAssignmentDetails($assignmentDetails)
+            ->withDesigns($designs);
     }
 
     /**

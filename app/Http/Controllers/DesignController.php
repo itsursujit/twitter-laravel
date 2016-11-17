@@ -146,6 +146,19 @@ class DesignController extends InfyOmBaseController
             return redirect(route('designs.index'));
         }
 
+        if(!empty($input['image']) ){
+            $image = $request->file('image');
+            if($image->isValid()) {
+                $destinationPath = public_path().'/images/designs/';
+                $fileName = $design->id . '.'.$image->getClientOriginalExtension();
+                $filePath = '/images/designs/' . $fileName;
+                $this->upload($image, $destinationPath, $fileName);
+
+                $design->image = $filePath;
+                $design->update();
+            }
+        }
+
         $design = $this->designRepository->update($request->all(), $id);
 
         Flash::success('Design updated successfully.');

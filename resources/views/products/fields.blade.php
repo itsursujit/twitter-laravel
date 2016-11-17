@@ -10,8 +10,8 @@
 <div class="row">
     <div class="col-sm-3">
         <div class="image-holder img-thumbnail">
-            @if(!empty($product->image))
-                <img src="{{ !empty($product->categories)?URL::to($product->categories->image):!empty($product->subCategories)?URL::to($product->subCategories->image):URL::to($product->image) }}" style="width:120px;" class="img img-responsive" alt="{!! $product->title !!}">
+            @if(!empty($product->design->image))
+                <img src="{{ $product->design->image }}" style="width:120px;" class="img img-responsive" alt="{!! $product->title !!}">
             @endif
         </div>
         {{--
@@ -33,7 +33,7 @@
                     </h4>
                 </div>
                 <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                    <div class="panel-body">
+                    <div class="panel-body">{{--
                         <!-- Category Field -->
                         <div class="form-group col-sm-6">
                             <label for="category">Category:</label>
@@ -62,11 +62,11 @@
                                     @endif
                                 @endforeach
                             </select>
-                        </div>
+                        </div>--}}
 
                         <div class="form-group col-sm-6">
                             {!! Form::label('code', 'Design Code:') !!}
-                            {!! Form::text('code', null, ['class' => 'form-control']) !!}
+                            {!! Form::select('code', $designs, null, ['class' => 'form-control']) !!}
                         </div>
 
                         <div class="form-group col-sm-6">

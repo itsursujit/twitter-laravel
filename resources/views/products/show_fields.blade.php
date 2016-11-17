@@ -1,9 +1,3 @@
-<!-- Id Field -->
-<div class="form-group">
-    {!! Form::label('id', 'Id:') !!}
-    <p>{!! $product->id !!}</p>
-</div>
-
 <!-- Code Field -->
 <div class="form-group">
     {!! Form::label('code', 'Code:') !!}
@@ -14,30 +8,6 @@
 <div class="form-group">
     {!! Form::label('title', 'Title:') !!}
     <p>{!! $product->title !!}</p>
-</div>
-
-<!-- Created At Field -->
-<div class="form-group">
-    {!! Form::label('created_at', 'Created At:') !!}
-    <p>{!! $product->created_at !!}</p>
-</div>
-
-<!-- Updated At Field -->
-<div class="form-group">
-    {!! Form::label('updated_at', 'Updated At:') !!}
-    <p>{!! $product->updated_at !!}</p>
-</div>
-
-<!-- Category Field -->
-<div class="form-group">
-    {!! Form::label('category', 'Category:') !!}
-    <p>{!! $product->category !!}</p>
-</div>
-
-<!-- Sub Category Field -->
-<div class="form-group">
-    {!! Form::label('sub_category', 'Sub Category:') !!}
-    <p>{!! $product->sub_category !!}</p>
 </div>
 
 <!-- Weight Field -->
@@ -61,7 +31,11 @@
 <!-- Image Field -->
 <div class="form-group">
     {!! Form::label('image', 'Image:') !!}
-    <p>{!! $product->image !!}</p>
+    <p>
+        @if(!empty($product->design->image))
+            <img src="{{ $product->design->image }}" style="width:120px;" class="img img-responsive" alt="{!! $product->title !!}">
+        @endif
+    </p>
 </div>
 
 <!-- Status Field -->

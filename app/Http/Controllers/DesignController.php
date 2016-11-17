@@ -6,6 +6,8 @@ use App\Http\Requests;
 use App\Http\Requests\CreateDesignRequest;
 use App\Http\Requests\UpdateDesignRequest;
 use App\Models\Category;
+use App\Models\Design;
+use App\Models\Product;
 use App\Repositories\DesignRepository;
 use App\Http\Controllers\AppBaseController as InfyOmBaseController;
 use Illuminate\Http\Request;
@@ -35,8 +37,7 @@ class DesignController extends InfyOmBaseController
         $mainCategory = Category::where('parent_id', 0)->whereNotIn('id',[0])->get()->toArray();
         $subCategory = Category::whereNotIn('parent_id', array_keys($mainCategory))->whereNotIn('id',[0])->get()->toArray();
         $this->designRepository->pushCriteria(new RequestCriteria($request));
-        $designs = $this->designRepository->all();
-        $designs = DB::select("SELECT * FROM designs");
+        $designs = $this->designRepository->with(['categories', 'subCategories'])->all();
         return view('designs.index')
             ->withMainCategory($mainCategory)
             ->withSubCategory($subCategory)
@@ -118,14 +119,18 @@ class DesignController extends InfyOmBaseController
     public function edit($id)
     {
         $design = $this->designRepository->findWithoutFail($id);
-
+        $mainCategory = Category::where('parent_id', 0)->whereNotIn('id',[0])->get()->toArray();
+        $subCategory = Category::whereNotIn('parent_id', array_keys($mainCategory))->whereNotIn('id',[0])->get()->toArray();
         if (empty($design)) {
             Flash::error('Design not found');
 
             return redirect(route('designs.index'));
         }
 
-        return view('designs.edit')->with('design', $design);
+        return view('designs.edit')
+            ->with('design', $design)
+            ->withMainCategory($mainCategory)
+            ->withSubCategory($subCategory);
     }
 
     /**
@@ -181,6 +186,12 @@ class DesignController extends InfyOmBaseController
             Flash::error('Design not found');
 
             return redirect(route('designs.index'));
+        }
+
+        $product = Product::where('code',$id)->get();
+        if(count($product)>0){
+            Flash::error('Design cannot be deleted as it is linked to Product.');
+            return redirect('/designs');
         }
 
         $this->designRepository->delete($id);

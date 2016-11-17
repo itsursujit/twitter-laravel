@@ -12,8 +12,8 @@
                             <option value="completed" @if(!empty($status) && $status =="completed") {{ "selected" }} @endif>Completed</option>
                         </select>
                     </div>
-                    <div class="col-md-3">
-                        <button type="submit" class="btn btn-primary col-md-4">Search</button>
+                    <div class="col-md-5">
+                        <button type="submit" class="btn btn-primary col-md-6">Search</button>
                     </div>
 
                 </div>

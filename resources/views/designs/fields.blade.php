@@ -1,16 +1,10 @@
-<!-- Code Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('code', 'Code:') !!}
-    {!! Form::text('code', null, ['class' => 'form-control']) !!}
-</div>
-
 <!-- Category Field -->
 <div class="form-group col-sm-6">
     <label for="category">Category:</label>
     <select name="category" id="category" class="form-control">
         <option value="">Select Category</option>
         @foreach($main_category as $key => $category)
-            @if(!empty($product->category) && $product->category == $category['id'])
+            @if(!empty($design->category) && $design->category == $category['id'])
                 <option value="{{ $category['id'] }}" selected data-value="{{ $category['code'] }}">{{ $category['title'] }}</option>
             @else
                 <option value="{{ $category['id'] }}" data-value="{{ $category['code'] }}">{{ $category['title'] }}</option>
@@ -25,13 +19,18 @@
     <select name="sub_category" id="sub_category" class="form-control">
         <option value="">Select Sub Category</option>
         @foreach($sub_category as $key => $category)
-            @if(!empty($product->sub_category) && $product->sub_category == $category['id'])
+            @if(!empty($design->sub_category) && $design->sub_category == $category['id'])
                 <option value="{{ $category['id'] }}" class="category-options parent-{{ $category['parent_id'] }}" selected data-value="{{ $category['code'] }}">{{ $category['title'] }}</option>
             @else
                 <option value="{{ $category['id'] }}" class="category-options parent-{{ $category['parent_id'] }}" data-value="{{ $category['code'] }}">{{ $category['title'] }}</option>
             @endif
         @endforeach
     </select>
+</div>
+<!-- Code Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('code', 'Code:') !!}
+    {!! Form::text('code', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Image Field -->

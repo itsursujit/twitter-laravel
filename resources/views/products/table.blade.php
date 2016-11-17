@@ -1,36 +1,36 @@
 <table class="table table-responsive" id="products-table">
     <thead>
-        <th>Image</th>
-        <th>Code</th>
-        <th>Title</th>
-        <th>Weight</th>
-        <th>Jarti</th>
-        <th>Wages</th>
-        <th>Amount</th>
-        <th>Status</th>
-        <th colspan="3">Action</th>
+        <tr>
+            <th>Image</th>
+            <th>Code</th>
+            <th>Weight</th>
+            <th>Jarti</th>
+            <th>Wages</th>
+            <th>Amount</th>
+            <th class="no-sort">Status</th>
+            <th colspan="3" class="no-sort">Action</th>
+        </tr>
     </thead>
     <tbody>
     @foreach($products as $product)
         <tr>
             <td>
-                @if(!empty($product->image))
-                    <img src="{{ !empty($product->categories)?URL::to($product->categories->image):!empty($product->subCategories)?URL::to($product->subCategories->image):URL::to($product->image) }}" style="width:120px;" class="img img-responsive" alt="{!! $product->title !!}">
+                @if(!empty($product->design->image))
+                    <img src="{{ $product->design->image }}" style="width:120px;" class="img img-responsive" alt="{!! $product->title !!}">
                 @endif
             </td>
-            <td>{!! $product->code !!}</td>
-            <td>{!! !empty($product->subCategories->title)?$product->subCategories->title:$product->title !!}</td>
+            <td>{!! $product->design->code !!}</td>
             <td>{!! $product->weight !!}</td>
             <td>{!! $product->additional_jarti !!}</td>
             <td>{!! $product->wages !!}</td>
             <td>{!! $product->amount !!}</td>
             <td>
                 @if($product->status == 'Not Started')
-                    <label for="" class="label label-danger">{!! $product->status !!}</label>
+                    <span for="" class="label label-danger">{!! $product->status !!}</span>
                 @elseif($product->status == 'In Progress')
-                    <label for="" class="label label-warning">{!! $product->status !!}</label>
+                    <span for="" class="label label-warning">{!! $product->status !!}</span>
                 @elseif($product->status == 'Completed')
-                    <label for="" class="label label-success">{!! $product->status !!}</label>
+                    <span for="" class="label label-success">{!! $product->status !!}</span>
                 @endif
             </td>
             <td>{!! $product->material_description !!}</td>

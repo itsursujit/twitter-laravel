@@ -1,8 +1,3 @@
-<!-- Id Field -->
-<div class="form-group">
-    {!! Form::label('id', 'Id:') !!}
-    <p>{!! $kaligard->id !!}</p>
-</div>
 
 <!-- First Name Field -->
 <div class="form-group">
@@ -43,7 +38,11 @@
 <!-- Image Field -->
 <div class="form-group">
     {!! Form::label('image', 'Image:') !!}
-    <p>{!! $kaligard->image !!}</p>
+    <p>
+        @if(!empty($kaligard->image))
+            <img src="{{ URL::to($kaligard->image) }}" style="width:120px;" class="img img-responsive" alt="{!! $kaligard->first_name !!}">
+        @endif
+    </p>
 </div>
 
 <!-- Code Field -->
@@ -64,11 +63,6 @@
     <p>{!! $kaligard->id_card_type !!}</p>
 </div>
 
-<!-- Id Card Image Field -->
-<div class="form-group">
-    {!! Form::label('id_card_image', 'Id Card Image:') !!}
-    <p>{!! $kaligard->id_card_image !!}</p>
-</div>
 
 <!-- Notes Field -->
 <div class="form-group">
@@ -76,15 +70,4 @@
     <p>{!! $kaligard->notes !!}</p>
 </div>
 
-<!-- Created At Field -->
-<div class="form-group">
-    {!! Form::label('created_at', 'Created At:') !!}
-    <p>{!! $kaligard->created_at !!}</p>
-</div>
-
-<!-- Updated At Field -->
-<div class="form-group">
-    {!! Form::label('updated_at', 'Updated At:') !!}
-    <p>{!! $kaligard->updated_at !!}</p>
-</div>
 

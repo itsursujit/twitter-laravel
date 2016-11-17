@@ -1,21 +1,3 @@
-<!-- Id Field -->
-<div class="form-group">
-    {!! Form::label('id', 'Id:') !!}
-    <p>{!! $design->id !!}</p>
-</div>
-
-<!-- Created At Field -->
-<div class="form-group">
-    {!! Form::label('created_at', 'Created At:') !!}
-    <p>{!! $design->created_at !!}</p>
-</div>
-
-<!-- Updated At Field -->
-<div class="form-group">
-    {!! Form::label('updated_at', 'Updated At:') !!}
-    <p>{!! $design->updated_at !!}</p>
-</div>
-
 <!-- Code Field -->
 <div class="form-group">
     {!! Form::label('code', 'Code:') !!}
@@ -37,7 +19,9 @@
 <!-- Image Field -->
 <div class="form-group">
     {!! Form::label('image', 'Image:') !!}
-    <p>{!! $design->image !!}</p>
+    <p>@if(!empty($design->image))
+            <img src="{{ URL::to($design->image) }}" style="width: 120px;" class="img img-responsive" alt="{!! $design->code !!}">
+        @endif</p>
 </div>
 
 <!-- Description Field -->

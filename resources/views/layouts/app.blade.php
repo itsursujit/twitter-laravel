@@ -107,7 +107,7 @@
 
             <div class="row">
             @if (Config::has('infyom.laravel_generator.add_on.menu.enabled')) 
-                <div class="col-md-9 col-md-offset-2">
+                <div class="col-md-9 col-md-offset-3">
                     @yield('content')
                 </div>
             @else
@@ -135,6 +135,13 @@
             e.preventDefault();
             $("#wrapper").toggleClass("toggled");
         });
+        $('.table').DataTable( {
+            "columnDefs": [{
+                "orderable": false,
+                "searchable": false,
+                "targets": [-1,-2]
+            }],
+            } );
         function readURL(input, target) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();

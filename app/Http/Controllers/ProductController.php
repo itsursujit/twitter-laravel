@@ -6,6 +6,7 @@ use App\Http\Requests;
 use App\Http\Requests\CreateProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Category;
+use App\Models\Design;
 use App\Models\Inventory;
 use App\Models\Kaligard;
 use App\Models\MaterialType;
@@ -58,18 +59,17 @@ class ProductController extends InfyOmBaseController
         if(!empty($status)) {
             $this->productRepository->pushCriteria(new RequestCriteria($request));
             if(!empty($cat)){
-                $products = $this->productRepository->with('categories', 'subCategories')->findWhere(["status" => $status ])->all();
+                $products = $this->productRepository->with(['design', 'design.categories', 'design.subCategories'])->findWhere(["status" => $status ])->all();
             }
             else{
-                $products = $this->productRepository->with('categories', 'subCategories')->findWhere(["status" => $status ])->all();
+                $products = $this->productRepository->with(['design', 'design.categories', 'design.subCategories'])->findWhere(["status" => $status ])->all();
             }
 
         }
         else{
             $this->productRepository->pushCriteria(new RequestCriteria($request));
-            $products = $this->productRepository->with('categories', 'subCategories')->all();
+            $products = $this->productRepository->with(['design', 'design.categories', 'design.subCategories'])->all();
         }
-
 
         return view('products.index')
             ->with('products', $products)
@@ -91,8 +91,13 @@ class ProductController extends InfyOmBaseController
         $kaligards = Kaligard::where('is_deleted', 0)->get()->toArray();
         $shops = Shop::all()->toArray();
         $materials = MaterialType::where('is_deleted', 0)->lists('title', 'id')->toArray();
+        $designList = Design::with('categories', 'subCategories')->get()->toArray();
         $kaligardsLists = [];
         $shopLists = [];
+        $designs = [];
+        foreach($designList as $key => $design) {
+            $designs[$design['id']] = $design['code'] . ' - ' . $design['sub_categories']['title'];
+        }
         foreach($kaligards as $key => $kaligard) {
             $kaligardsLists[$kaligard['id']] = $kaligard['code'] . ' - ' . $kaligard['first_name'] . ' ' . $kaligard['middle_name'] . ' ' . $kaligard['last_name'];
         }
@@ -107,7 +112,8 @@ class ProductController extends InfyOmBaseController
                 ->withSubCategory($subCategory)
                 ->withKaligards($kaligardsLists)
                 ->withShops($shopLists)
-                ->withMaterials($materials);
+                ->withMaterials($materials)
+                ->withDesigns($designs);
     }
 
     /**
@@ -202,15 +208,20 @@ class ProductController extends InfyOmBaseController
      */
     public function edit($id)
     {
-        $product = $this->productRepository->with('categories', 'subCategories')->findWithoutFail($id);
+        $product = $this->productRepository->with(['design', 'design.categories', 'design.subCategories'])->findWithoutFail($id);
         $mainCategory = Category::where('parent_id', 0)->whereNotIn('id',[0])->get()->toArray();
         $subCategory = Category::whereNotIn('parent_id', array_keys($mainCategory))->whereNotIn('id',[0])->get()->toArray();
         $kaligards = Kaligard::where('is_deleted', 0)->get()->toArray();
         $materials = MaterialType::where('is_deleted', 0)->lists('title', 'id')->toArray();
         $shops = Shop::all()->toArray();
         $assignments = WorkAssignment::where('product_id', $product->id)->first();
+        $designList = Design::with('categories', 'subCategories')->get()->toArray();
 
         $assignmentDetails = [];
+        $designs = [];
+        foreach($designList as $key => $design) {
+            $designs[$design['id']] = $design['code'] . ' - ' . $design['sub_categories']['title'];
+        }
         if(count($assignments)>0){
             $assignments = $assignments->toArray();
             $assignmentDetails = WorkAssignmentDetail::where('assignment_id', $assignments['id'])->get()->toArray();
@@ -242,7 +253,8 @@ class ProductController extends InfyOmBaseController
             ->withShops($shopLists)
             ->withMaterials($materials)
             ->withAssignments($assignments)
-            ->withAssignmentDetails($assignmentDetails);
+            ->withAssignmentDetails($assignmentDetails)
+            ->withDesigns($designs);
     }
 
     /**

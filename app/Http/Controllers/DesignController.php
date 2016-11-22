@@ -144,13 +144,14 @@ class DesignController extends InfyOmBaseController
     public function update($id, UpdateDesignRequest $request)
     {
         $design = $this->designRepository->findWithoutFail($id);
+        $input = $request->all();
 
         if (empty($design)) {
             Flash::error('Design not found');
 
             return redirect(route('designs.index'));
         }
-
+        $design = $this->designRepository->update($request->all(), $id);
         if(!empty($input['image']) ){
             $image = $request->file('image');
             if($image->isValid()) {
@@ -163,8 +164,6 @@ class DesignController extends InfyOmBaseController
                 $design->update();
             }
         }
-
-        $design = $this->designRepository->update($request->all(), $id);
 
         Flash::success('Design updated successfully.');
 

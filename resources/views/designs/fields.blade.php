@@ -41,7 +41,9 @@
     </div>
     <div class="col-sm-6">
         <div class="image-holder-current img-thumbnail">
-            <img class="img img-responsive">
+            @if(!empty($design->image))
+                <img src="{{ URL::to($design->image) }}" class="img img-responsive" alt="{!! $design->code !!}">
+            @endif
         </div>
     </div>
 </div>

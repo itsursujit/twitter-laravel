@@ -19,7 +19,7 @@
                     <img src="{{ $product->design->image }}" style="width:120px;" class="img img-responsive" alt="{!! $product->title !!}">
                 @endif
             </td>
-            <td>{!! $product->design->code !!}</td>
+            <td>{!! !empty($product->design)?$product->design->code:'' !!}</td>
             <td>{!! $product->weight !!}</td>
             <td>{!! $product->additional_jarti !!}</td>
             <td>{!! $product->wages !!}</td>

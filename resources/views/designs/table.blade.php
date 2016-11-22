@@ -16,8 +16,8 @@
                 @endif
             </td>
             <td>{!! $design->code !!}</td>
-            <td>{!! $design->categories->title !!}</td>
-            <td>{!! $design->subCategories->title !!}</td>
+            <td>{!! !empty($design->categories)?$design->categories->title:'' !!}</td>
+            <td>{!! !empty($design->subCategories)?$design->subCategories->title:'' !!}</td>
             <td>{!! $design->description !!}</td>
             <td>
                 {!! Form::open(['route' => ['designs.destroy', $design->id], 'method' => 'delete']) !!}

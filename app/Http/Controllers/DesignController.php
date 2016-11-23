@@ -35,7 +35,11 @@ class DesignController extends InfyOmBaseController
     public function index(Request $request)
     {
         $mainCategory = Category::where('parent_id', 0)->whereNotIn('id',[0])->get()->toArray();
-        $subCategory = Category::whereNotIn('parent_id', array_keys($mainCategory))->whereNotIn('id',[0])->get()->toArray();
+        $keys = [];
+        foreach($mainCategory as $key => $value) {
+            $keys[] = $value['id'];
+        }
+        $subCategory = Category::whereIn('parent_id', $keys)->whereNotIn('id',[0])->get()->toArray();
         $this->designRepository->pushCriteria(new RequestCriteria($request));
         $designs = $this->designRepository->with(['categories', 'subCategories'])->all();
         return view('designs.index')
@@ -52,7 +56,11 @@ class DesignController extends InfyOmBaseController
     public function create()
     {
         $mainCategory = Category::where('parent_id', 0)->whereNotIn('id',[0])->get()->toArray();
-        $subCategory = Category::whereNotIn('parent_id', array_keys($mainCategory))->whereNotIn('id',[0])->get()->toArray();
+        $keys = [];
+        foreach($mainCategory as $key => $value) {
+            $keys[] = $value['id'];
+        }
+        $subCategory = Category::whereIn('parent_id', $keys)->whereNotIn('id',[0])->get()->toArray();
         return view('designs.create')
             ->withMainCategory($mainCategory)
             ->withSubCategory($subCategory);

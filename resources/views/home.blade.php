@@ -81,7 +81,7 @@
                                     @foreach($kaligards as $key => $kaligard)
                                         <div class="category-wrapper list-group-item">
                                             <div class="col-md-3">
-                                                <img class="img img-responsive img-circle" src="{{ URL::to($kaligard['image']) }}" alt="">
+                                                {{--<img class="img img-responsive img-circle" src="{{ URL::to($kaligard['image']) }}" alt="">--}}
                                             </div>
                                             <div class="col-md-9">
                                                 <div class="category-title">

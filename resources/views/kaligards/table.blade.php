@@ -1,7 +1,7 @@
 <table class="table table-responsive" id="kaligards-table">
     <thead>
         <tr>
-            <th>Image</th>
+            {{--<th>Image</th>--}}
             <th>Code</th>
             <th>Name</th>
             <th>Nationality</th>
@@ -14,11 +14,11 @@
     <tbody>
     @foreach($kaligards as $kaligard)
         <tr>
-            <td>
+           {{-- <td>
                 @if(!empty($kaligard->image))
                     <img src="{{ URL::to($kaligard->image) }}" style="width:120px;" class="img img-responsive" alt="{!! $kaligard->first_name !!}">
                 @endif
-            </td>
+            </td>--}}
             <td>{!! $kaligard->code !!}</td>
             <td>{!! $kaligard->first_name . ' ' . $kaligard->middle_name . ' ' . $kaligard->last_name !!}</td>
             <td>{!! $kaligard->nationality !!}</td>

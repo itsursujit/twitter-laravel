@@ -79,6 +79,11 @@
                             {!! Form::radio('product_type', 'sale', true) !!} Sale
                             {!! Form::radio('product_type', 'order') !!} Order
                         </div>
+
+                        <div class="form-group col-sm-6">
+                            {!! Form::label('title', 'Product Name:') !!}
+                            {!! Form::text('title', null, ['class' => 'form-control']) !!}
+                        </div>
                     </div>
                 </div>
             </div>

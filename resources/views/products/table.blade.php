@@ -3,6 +3,7 @@
         <tr>
             <th>Image</th>
             <th>Code</th>
+            <th>Product Name</th>
             <th>Weight</th>
             <th>Jarti</th>
             <th>Wages</th>
@@ -21,6 +22,7 @@
             </td>
             <td>{!! !empty($product->design)?$product->design->code:'' !!}</td>
             <td>{!! $product->weight !!}</td>
+            <td>{!! $product->title !!}</td>
             <td>{!! $product->additional_jarti !!}</td>
             <td>{!! $product->wages !!}</td>
             <td>{!! $product->amount !!}</td>

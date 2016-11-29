@@ -42,7 +42,7 @@
     ?>
     @foreach($categories as $key => $cat)
         <tr class="clickable" data-toggle="collapse" id="row{{$key}}" data-target=".row{{$key}}">
-            <td><i class="glyphicon glyphicon-plus"></i></td>
+            <td> @if(count($cat->childCategory)>0) <i class="glyphicon glyphicon-plus"></i> @endif</td>
             <td>{!! $cat->title !!}</td>
             <td>Main Category</td>
             <td></td>

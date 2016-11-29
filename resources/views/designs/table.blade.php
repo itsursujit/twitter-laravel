@@ -5,7 +5,7 @@
         <th>Category</th>
         <th>Sub Category</th>
         <th>Description</th>
-        <th colspan="3">Action</th>
+        <th>Action</th>
     </thead>
     <tbody>
     @foreach($designs as $design)

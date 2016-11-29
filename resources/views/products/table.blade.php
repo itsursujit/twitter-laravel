@@ -9,7 +9,7 @@
             <th>Wages</th>
             <th>Amount</th>
             <th class="no-sort">Status</th>
-            <th colspan="3" class="no-sort">Action</th>
+            <th class="no-sort">Action</th>
         </tr>
     </thead>
     <tbody>
@@ -21,8 +21,8 @@
                 @endif
             </td>
             <td>{!! !empty($product->design)?$product->design->code:'' !!}</td>
-            <td>{!! $product->weight !!}</td>
             <td>{!! $product->title !!}</td>
+            <td>{!! $product->weight !!}</td>
             <td>{!! $product->additional_jarti !!}</td>
             <td>{!! $product->wages !!}</td>
             <td>{!! $product->amount !!}</td>
@@ -35,7 +35,6 @@
                     <span for="" class="label label-success">{!! $product->status !!}</span>
                 @endif
             </td>
-            <td>{!! $product->material_description !!}</td>
             <td>
                 {!! Form::open(['route' => ['products.destroy', $product->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>

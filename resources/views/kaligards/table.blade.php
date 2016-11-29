@@ -1,7 +1,6 @@
 <table class="table table-responsive" id="kaligards-table">
     <thead>
         <tr>
-            {{--<th>Image</th>--}}
             <th>Code</th>
             <th>Name</th>
             <th>Nationality</th>
@@ -9,7 +8,7 @@
             <th>Phone 1</th>
             <th>Phone 2</th>
             <th>Notes</th>
-            <th colspan="3">Action</th>
+            <th>Action</th>
         </tr>
     </thead>
     <tbody>

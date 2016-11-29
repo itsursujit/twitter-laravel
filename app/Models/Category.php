@@ -69,6 +69,10 @@ class Category extends Model
         //'code' => 'required|unique:categories'
     ];
 
+    public function childCategory() {
+        return $this->hasMany('App\Models\Category', 'parent_id', 'id');
+    }
+
     public function parentCategory(){
         return $this->hasOne('App\Models\Category', 'id', 'parent_id');
     }

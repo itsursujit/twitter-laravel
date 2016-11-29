@@ -1,20 +1,58 @@
-<table class="table table-responsive" id="categories-table">
+<style>
+    table .collapse.in {
+        display:table-row;
+    }
+    table {
+        width:100%;
+        clear: both;
+        margin-top: 6px !important;
+        margin-bottom: 6px !important;
+        max-width: none !important;
+    }
+    table>thead>tr>th {
+        vertical-align: bottom;
+        border-bottom: 2px solid #ddd;
+    }
+    table>tbody>tr>td,table>thead>tr>th {
+        padding: 8px;
+        line-height: 1.42857143;
+        vertical-align: top;
+        border-top: 1px solid #ddd;
+    }
+    table .collapse {
+        background-color: rgba(146, 186, 194, 0.34);
+    }
+
+    table .collapse>td:first-child {
+        text-align: center;
+    }
+</style>
+<table class="table-responsive table-hover" id="categories-table">
     <thead>
-    <tr>
-        <th>#</th>
-        <th>Title</th>
-        <th>Parent Category</th>
-        <th colspan="3">Action</th>
-    </tr>
+        <tr>
+            <th>#</th>
+            <th>Title</th>
+            <th>Parent Category</th>
+            <th colspan="3">Action</th>
+        </tr>
     </thead>
     <tbody>
-    @foreach($categories as $key => $category)
-        @if($category->id)
-            <tr>
-                <td>{{ $key }}</td>
+    <?php
+        $count = 1;
+    ?>
+    @foreach($categories as $key => $cat)
+        <tr class="clickable" data-toggle="collapse" id="row{{$key}}" data-target=".row{{$key}}">
+            <td><i class="glyphicon glyphicon-plus"></i></td>
+            <td>{!! $cat->title !!}</td>
+            <td>Main Category</td>
+            <td></td>
+        </tr>
+        @foreach($cat->childCategory as $i => $category)
+            <tr class="collapse row{{$key}}">
+                <td>{{ $count }}</td>
                 <td>{!! $category->title !!}</td>
 
-                <td>{!! $category->parentCategory->title !!}</td>
+                <td>{!! $cat->title !!}</td>
                 <td>
                     {!! Form::open(['route' => ['categories.destroy', $category->id], 'method' => 'delete']) !!}
                     <div class='btn-group'>
@@ -25,7 +63,11 @@
                     {!! Form::close() !!}
                 </td>
             </tr>
-        @endif
+            <?php
+                $count++;
+            ?>
+        @endforeach
+
     @endforeach
     </tbody>
 </table>

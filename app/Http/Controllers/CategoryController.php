@@ -33,8 +33,11 @@ class CategoryController extends InfyOmBaseController
     public function index(Request $request)
     {
         $this->categoryRepository->pushCriteria(new RequestCriteria($request));
-        $categories = $this->categoryRepository->with('parentCategory')->all();
-
+        $categories = $this->categoryRepository->with(['parentCategory', 'childCategory'])
+            ->whereHas('childCategory', function ($query) {
+                $query->where('id', '<>', 'id');
+            })
+            ->findwhereNotIn('id', [0])->all();
         return view('categories.index')
             ->with('categories', $categories);
     }

@@ -69,6 +69,12 @@ class ProductController extends InfyOmBaseController
         else{
             $this->productRepository->pushCriteria(new RequestCriteria($request));
             $products = $this->productRepository->with(['design', 'design.categories', 'design.subCategories'])->all();
+            /*$this->productRepository->pushCriteria(new RequestCriteria($request));
+            $products = $this->productRepository->with(['design', 'design.categories', 'design.subCategories'])
+                ->whereHas('design.categories', function ($query) {
+                    $query->where('id', '=', 2);
+                })
+                ->all();*/
         }
 
         return view('products.index')
